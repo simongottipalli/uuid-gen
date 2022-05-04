@@ -1,0 +1,21 @@
+swagger: "2.0"
+info:
+  title: UUID Generator
+  description: Generates one or more UUIDs
+  version: 0.0.1
+
+# host: api.example.com
+basePath: /v1
+schemes:
+  - http
+
+paths:
+  /uuid:
+    get:
+      summary: Returns a uuid
+      description: Description
+      produces:
+        - application/json
+      responses:
+        200:    # status code
+          description: A single UUID

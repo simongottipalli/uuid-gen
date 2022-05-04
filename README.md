@@ -14,5 +14,5 @@ pipeline
 # Notes so far
 
 1. Create, install and generate code with [goswagger](https://goswagger.io)
-2. `go mod init` - generated go.mod and go.sum
+2. `go mod init uuid-gen` - generated go.mod and go.sum
 

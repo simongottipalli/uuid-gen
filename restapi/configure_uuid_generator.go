@@ -9,7 +9,9 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
+	"github.com/google/uuid"
 
+	"uuid-gen/models"
 	"uuid-gen/restapi/operations"
 )
 
@@ -37,11 +39,21 @@ func configureAPI(api *operations.UUIDGeneratorAPI) http.Handler {
 
 	api.JSONProducer = runtime.JSONProducer()
 
-	if api.GetUUIDHandler == nil {
-		api.GetUUIDHandler = operations.GetUUIDHandlerFunc(func(params operations.GetUUIDParams) middleware.Responder {
-			return middleware.NotImplemented("operation operations.GetUUID has not yet been implemented")
+	api.GetUUIDHandler = operations.GetUUIDHandlerFunc(func(params operations.GetUUIDParams) middleware.Responder {
+		s, err := uuid.NewUUID()
+		if err != nil {
+			errorStr := "Failed to generate uuid, refresh page to try again"
+			return operations.NewGetUUIDDefault(500).WithPayload(&models.Error{
+				Error: &errorStr,
+			})
+		}
+
+		str := s.String()
+
+		return operations.NewGetUUIDOK().WithPayload(&models.GetUUIDResponse{
+			UUID: &str,
 		})
-	}
+	})
 
 	api.PreServerShutdown = func() {}
 

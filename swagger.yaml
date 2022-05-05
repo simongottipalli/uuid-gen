@@ -22,6 +22,11 @@ paths:
           schema:
             type: object
             $ref: '#/definitions/GetUUIDResponse'
+        default:
+          description: fails
+          schema:
+            type: object
+            $ref: '#/definitions/Error'
 
 definitions:
   GetUUIDResponse:
@@ -30,4 +35,11 @@ definitions:
       - uuid
     properties:
       uuid:
+        type: string
+  Error:
+    type: object
+    required:
+      - error
+    properties:
+      error:
         type: string

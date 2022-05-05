@@ -43,12 +43,30 @@ func init() {
               "type": "object",
               "$ref": "#/definitions/GetUUIDResponse"
             }
+          },
+          "default": {
+            "description": "fails",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/Error"
+            }
           }
         }
       }
     }
   },
   "definitions": {
+    "Error": {
+      "type": "object",
+      "required": [
+        "error"
+      ],
+      "properties": {
+        "error": {
+          "type": "string"
+        }
+      }
+    },
     "GetUUIDResponse": {
       "type": "object",
       "required": [
@@ -88,12 +106,30 @@ func init() {
               "type": "object",
               "$ref": "#/definitions/GetUUIDResponse"
             }
+          },
+          "default": {
+            "description": "fails",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/Error"
+            }
           }
         }
       }
     }
   },
   "definitions": {
+    "Error": {
+      "type": "object",
+      "required": [
+        "error"
+      ],
+      "properties": {
+        "error": {
+          "type": "string"
+        }
+      }
+    },
     "GetUUIDResponse": {
       "type": "object",
       "required": [

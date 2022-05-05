@@ -38,8 +38,25 @@ func init() {
         "summary": "Returns a uuid",
         "responses": {
           "200": {
-            "description": "A single UUID"
+            "description": "A single UUID",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/GetUUIDResponse"
+            }
           }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "GetUUIDResponse": {
+      "type": "object",
+      "required": [
+        "uuid"
+      ],
+      "properties": {
+        "uuid": {
+          "type": "string"
         }
       }
     }
@@ -66,8 +83,25 @@ func init() {
         "summary": "Returns a uuid",
         "responses": {
           "200": {
-            "description": "A single UUID"
+            "description": "A single UUID",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/GetUUIDResponse"
+            }
           }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "GetUUIDResponse": {
+      "type": "object",
+      "required": [
+        "uuid"
+      ],
+      "properties": {
+        "uuid": {
+          "type": "string"
         }
       }
     }

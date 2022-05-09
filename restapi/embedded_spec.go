@@ -27,8 +27,18 @@ func init() {
     "title": "UUID Generator",
     "version": "0.0.1"
   },
-  "basePath": "/v1",
   "paths": {
+    "/readiness_check": {
+      "get": {
+        "description": "readiness check",
+        "summary": "readiness check",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/uuid": {
       "get": {
         "description": "Description",
@@ -72,8 +82,18 @@ func init() {
     "title": "UUID Generator",
     "version": "0.0.1"
   },
-  "basePath": "/v1",
   "paths": {
+    "/readiness_check": {
+      "get": {
+        "description": "readiness check",
+        "summary": "readiness check",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/uuid": {
       "get": {
         "description": "Description",

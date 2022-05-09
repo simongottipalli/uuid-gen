@@ -3,13 +3,15 @@
 package restapi
 
 import (
+	"context"
 	"crypto/tls"
 	"net/http"
+	"time"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/runtime/middleware"
 
+	"uuid-gen/handlers"
 	"uuid-gen/restapi/operations"
 )
 
@@ -37,11 +39,12 @@ func configureAPI(api *operations.UUIDGeneratorAPI) http.Handler {
 
 	api.JSONProducer = runtime.JSONProducer()
 
-	if api.GetUUIDHandler == nil {
-		api.GetUUIDHandler = operations.GetUUIDHandlerFunc(func(params operations.GetUUIDParams) middleware.Responder {
-			return middleware.NotImplemented("operation operations.GetUUID has not yet been implemented")
-		})
-	}
+	setupHandlers(api)
+	//if api.GetUUIDHandler == nil {
+	//	api.GetUUIDHandler = operations.GetUUIDHandlerFunc(func(params operations.GetUUIDParams) middleware.Responder {
+	//		return middleware.NotImplemented("operation operations.GetUUID has not yet been implemented")
+	//	})
+	//}
 
 	api.PreServerShutdown = func() {}
 
@@ -72,4 +75,15 @@ func setupMiddlewares(handler http.Handler) http.Handler {
 // So this is a good place to plug in a panic handling middleware, logging and metrics.
 func setupGlobalMiddleware(handler http.Handler) http.Handler {
 	return handler
+}
+
+func setupHandlers(api *operations.UUIDGeneratorAPI) {
+	_, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	readinessHandler := handlers.NewReadinessCheckHandler()
+	api.GetReadinessCheckHandler = readinessHandler.GetReadiness
+	//	api.ProfileGetBetaFeaturesHandler = profileHandlers.GetBetaFeatures
+	//	api.ProfileGetPoliticalExposureHandler = profileHandlers.GetPoliticalExposureAuth
+	//	api.ProfileUpdatePoliticalExposureHandler = profileHandlers.UpdatePoliticalExposureAuth
 }

@@ -42,6 +42,9 @@ func NewUUIDGeneratorAPI(spec *loads.Document) *UUIDGeneratorAPI {
 
 		JSONProducer: runtime.JSONProducer(),
 
+		GetReadinessCheckHandler: GetReadinessCheckHandlerFunc(func(params GetReadinessCheckParams) middleware.Responder {
+			return middleware.NotImplemented("operation GetReadinessCheck has not yet been implemented")
+		}),
 		GetUUIDHandler: GetUUIDHandlerFunc(func(params GetUUIDParams) middleware.Responder {
 			return middleware.NotImplemented("operation GetUUID has not yet been implemented")
 		}),
@@ -81,6 +84,8 @@ type UUIDGeneratorAPI struct {
 	//   - application/json
 	JSONProducer runtime.Producer
 
+	// GetReadinessCheckHandler sets the operation handler for the get readiness check operation
+	GetReadinessCheckHandler GetReadinessCheckHandler
 	// GetUUIDHandler sets the operation handler for the get UUID operation
 	GetUUIDHandler GetUUIDHandler
 
@@ -160,6 +165,9 @@ func (o *UUIDGeneratorAPI) Validate() error {
 		unregistered = append(unregistered, "JSONProducer")
 	}
 
+	if o.GetReadinessCheckHandler == nil {
+		unregistered = append(unregistered, "GetReadinessCheckHandler")
+	}
 	if o.GetUUIDHandler == nil {
 		unregistered = append(unregistered, "GetUUIDHandler")
 	}
@@ -251,6 +259,10 @@ func (o *UUIDGeneratorAPI) initHandlerCache() {
 		o.handlers = make(map[string]map[string]http.Handler)
 	}
 
+	if o.handlers["GET"] == nil {
+		o.handlers["GET"] = make(map[string]http.Handler)
+	}
+	o.handlers["GET"]["/readiness_check"] = NewGetReadinessCheck(o.context, o.GetReadinessCheckHandler)
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}

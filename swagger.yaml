@@ -5,11 +5,17 @@ info:
   version: 0.0.1
 
 # host: api.example.com
-basePath: /v1
 schemes:
   - http
 
 paths:
+  /readiness_check:
+    get:
+      summary: readiness check
+      description: readiness check
+      responses:
+        200:    # status code
+          description: OK
   /uuid:
     get:
       summary: Returns a uuid

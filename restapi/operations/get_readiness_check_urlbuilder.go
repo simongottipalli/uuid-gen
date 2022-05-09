@@ -11,15 +11,15 @@ import (
 	golangswaggerpaths "path"
 )
 
-// GetUUIDURL generates an URL for the get UUID operation
-type GetUUIDURL struct {
+// GetReadinessCheckURL generates an URL for the get readiness check operation
+type GetReadinessCheckURL struct {
 	_basePath string
 }
 
 // WithBasePath sets the base path for this url builder, only required when it's different from the
 // base path specified in the swagger spec.
 // When the value of the base path is an empty string
-func (o *GetUUIDURL) WithBasePath(bp string) *GetUUIDURL {
+func (o *GetReadinessCheckURL) WithBasePath(bp string) *GetReadinessCheckURL {
 	o.SetBasePath(bp)
 	return o
 }
@@ -27,15 +27,15 @@ func (o *GetUUIDURL) WithBasePath(bp string) *GetUUIDURL {
 // SetBasePath sets the base path for this url builder, only required when it's different from the
 // base path specified in the swagger spec.
 // When the value of the base path is an empty string
-func (o *GetUUIDURL) SetBasePath(bp string) {
+func (o *GetReadinessCheckURL) SetBasePath(bp string) {
 	o._basePath = bp
 }
 
 // Build a url path and query string
-func (o *GetUUIDURL) Build() (*url.URL, error) {
+func (o *GetReadinessCheckURL) Build() (*url.URL, error) {
 	var _result url.URL
 
-	var _path = "/uuid"
+	var _path = "/readiness_check"
 
 	_basePath := o._basePath
 	_result.Path = golangswaggerpaths.Join(_basePath, _path)
@@ -44,7 +44,7 @@ func (o *GetUUIDURL) Build() (*url.URL, error) {
 }
 
 // Must is a helper function to panic when the url builder returns an error
-func (o *GetUUIDURL) Must(u *url.URL, err error) *url.URL {
+func (o *GetReadinessCheckURL) Must(u *url.URL, err error) *url.URL {
 	if err != nil {
 		panic(err)
 	}
@@ -55,17 +55,17 @@ func (o *GetUUIDURL) Must(u *url.URL, err error) *url.URL {
 }
 
 // String returns the string representation of the path with query string
-func (o *GetUUIDURL) String() string {
+func (o *GetReadinessCheckURL) String() string {
 	return o.Must(o.Build()).String()
 }
 
 // BuildFull builds a full url with scheme, host, path and query string
-func (o *GetUUIDURL) BuildFull(scheme, host string) (*url.URL, error) {
+func (o *GetReadinessCheckURL) BuildFull(scheme, host string) (*url.URL, error) {
 	if scheme == "" {
-		return nil, errors.New("scheme is required for a full url on GetUUIDURL")
+		return nil, errors.New("scheme is required for a full url on GetReadinessCheckURL")
 	}
 	if host == "" {
-		return nil, errors.New("host is required for a full url on GetUUIDURL")
+		return nil, errors.New("host is required for a full url on GetReadinessCheckURL")
 	}
 
 	base, err := o.Build()
@@ -79,6 +79,6 @@ func (o *GetUUIDURL) BuildFull(scheme, host string) (*url.URL, error) {
 }
 
 // StringFull returns the string representation of a complete url
-func (o *GetUUIDURL) StringFull(scheme, host string) string {
+func (o *GetReadinessCheckURL) StringFull(scheme, host string) string {
 	return o.Must(o.BuildFull(scheme, host)).String()
 }

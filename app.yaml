@@ -26,7 +26,7 @@ resources:
   memory_gb: 0.5
   disk_size_gb: 10
 readiness_check:
-  path: "/v1/uuid"
+  path: "/readiness_check"
   check_interval_sec: 90
   timeout_sec: 60
   failure_threshold: 10

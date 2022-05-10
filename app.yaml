@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-runtime: custom
+runtime: go
 env: flex
 
 # This sample incurs costs to run on the App Engine flexible environment. 
@@ -31,4 +31,4 @@ readiness_check:
   timeout_sec: 4
   failure_threshold: 2
   success_threshold: 2
-  app_start_timeout_sec: 3000
+  app_start_timeout_sec: 300

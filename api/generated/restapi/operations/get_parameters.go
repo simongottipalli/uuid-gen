@@ -12,19 +12,19 @@ import (
 	"github.com/go-openapi/runtime/middleware"
 )
 
-// NewGetReadinessCheckParams creates a new GetReadinessCheckParams object
+// NewGetParams creates a new GetParams object
 //
 // There are no default values defined in the spec.
-func NewGetReadinessCheckParams() GetReadinessCheckParams {
+func NewGetParams() GetParams {
 
-	return GetReadinessCheckParams{}
+	return GetParams{}
 }
 
-// GetReadinessCheckParams contains all the bound params for the get readiness check operation
+// GetParams contains all the bound params for the get operation
 // typically these are obtained from a http.Request
 //
-// swagger:parameters GetReadinessCheck
-type GetReadinessCheckParams struct {
+// swagger:parameters Get
+type GetParams struct {
 
 	// HTTP Request Object
 	HTTPRequest *http.Request `json:"-"`
@@ -33,8 +33,8 @@ type GetReadinessCheckParams struct {
 // BindRequest both binds and validates a request, it assumes that complex things implement a Validatable(strfmt.Registry) error interface
 // for simple values it will use straight method calls.
 //
-// To ensure default values, the struct must have been initialized with NewGetReadinessCheckParams() beforehand.
-func (o *GetReadinessCheckParams) BindRequest(r *http.Request, route *middleware.MatchedRoute) error {
+// To ensure default values, the struct must have been initialized with NewGetParams() beforehand.
+func (o *GetParams) BindRequest(r *http.Request, route *middleware.MatchedRoute) error {
 	var res []error
 
 	o.HTTPRequest = r

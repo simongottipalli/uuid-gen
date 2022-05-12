@@ -10,7 +10,7 @@ import (
 
 	"github.com/go-openapi/runtime"
 
-	"uuid-gen/models"
+	"github.com/simongottipalli/uuid-gen/api/generated/models"
 )
 
 // GetUUIDOKCode is the HTTP code returned for type GetUUIDOK

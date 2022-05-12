@@ -1,5 +1,19 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-t', 'europe-west1-docker.pkg.dev/$PROJECT_ID/quickstart-docker-repo/quickstart-image:tag1', '.' ]
+  args: [ 'build', '-t', 'europe-west1-docker.pkg.dev/$PROJECT_ID/docker-builds/image', '.' ]
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'europe-west1-docker.pkg.dev/$PROJECT_ID/docker-builds/image']
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+  - 'run'
+  - 'deploy'
+  - 'cloudrunservice'
+  - '--image'
+  - 'europe-west1-docker.pkg.dev/$PROJECT_ID/docker-builds/image'
+  - '--region'
+  - 'europe-west1'
+  - '--platform'
+  - 'managed'
+  - '--allow-unauthenticated'
 images:
-- 'europe-west1-docker.pkg.dev/$PROJECT_ID/quickstart-docker-repo/quickstart-image:tag1'
+  - 'europe-west1-docker.pkg.dev/$PROJECT_ID/docker-builds/image'

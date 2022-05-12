@@ -10,16 +10,17 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
 
-	"uuid-gen/restapi/operations"
+	"github.com/simongottipalli/uuid-gen/api/generated/restapi/operations"
+	"github.com/simongottipalli/uuid-gen/handlers"
 )
 
-//go:generate swagger generate server --target ../../uuid-gen --name UUIDGenerator --spec ../swagger.yaml --principal interface{}
+//go:generate swagger generate server --target ../../generated --name UUIDGen --spec ../../../swagger.yaml --principal interface{}
 
-func configureFlags(api *operations.UUIDGeneratorAPI) {
+func configureFlags(api *operations.UUIDGenAPI) {
 	// api.CommandLineOptionsGroups = []swag.CommandLineOptionsGroup{ ... }
 }
 
-func configureAPI(api *operations.UUIDGeneratorAPI) http.Handler {
+func configureAPI(api *operations.UUIDGenAPI) http.Handler {
 	// configure the api here
 	api.ServeError = errors.ServeError
 
@@ -37,12 +38,13 @@ func configureAPI(api *operations.UUIDGeneratorAPI) http.Handler {
 
 	api.JSONProducer = runtime.JSONProducer()
 
-	if api.GetUUIDHandler == nil {
-		api.GetUUIDHandler = operations.GetUUIDHandlerFunc(func(params operations.GetUUIDParams) middleware.Responder {
-			return middleware.NotImplemented("operation operations.GetUUID has not yet been implemented")
+	if api.GetHandler == nil {
+		api.GetHandler = operations.GetHandlerFunc(func(params operations.GetParams) middleware.Responder {
+			return operations.NewGetOK()
 		})
 	}
 
+	handlers.RegisterHandlers(api)
 	api.PreServerShutdown = func() {}
 
 	api.ServerShutdown = func() {}

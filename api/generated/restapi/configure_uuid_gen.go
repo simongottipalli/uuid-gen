@@ -8,16 +8,9 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/runtime/middleware"
-	"github.com/google/uuid"
 
-<<<<<<< HEAD:restapi/configure_uuid_generator.go
-	"uuid-gen/models"
-	"uuid-gen/restapi/operations"
-=======
 	"github.com/simongottipalli/uuid-gen/api/generated/restapi/operations"
 	"github.com/simongottipalli/uuid-gen/handlers"
->>>>>>> main:api/generated/restapi/configure_uuid_gen.go
 )
 
 //go:generate swagger generate server --target ../../generated --name UUIDGen --spec ../../../swagger.yaml --principal interface{}
@@ -43,28 +36,6 @@ func configureAPI(api *operations.UUIDGenAPI) http.Handler {
 	api.JSONConsumer = runtime.JSONConsumer()
 
 	api.JSONProducer = runtime.JSONProducer()
-
-<<<<<<< HEAD:restapi/configure_uuid_generator.go
-	api.GetUUIDHandler = operations.GetUUIDHandlerFunc(func(params operations.GetUUIDParams) middleware.Responder {
-		s, err := uuid.NewUUID()
-		if err != nil {
-			errorStr := "Failed to generate uuid, refresh page to try again"
-			return operations.NewGetUUIDDefault(500).WithPayload(&models.Error{
-				Error: &errorStr,
-			})
-		}
-
-		str := s.String()
-
-		return operations.NewGetUUIDOK().WithPayload(&models.GetUUIDResponse{
-			UUID: &str,
-=======
-	if api.GetHandler == nil {
-		api.GetHandler = operations.GetHandlerFunc(func(params operations.GetParams) middleware.Responder {
-			return operations.NewGetOK()
->>>>>>> main:api/generated/restapi/configure_uuid_gen.go
-		})
-	})
 
 	handlers.RegisterHandlers(api)
 	api.PreServerShutdown = func() {}

@@ -5,9 +5,9 @@
 //  Generates one or more UUIDs
 //  Schemes:
 //    http
-//  Host: localhost
-//  BasePath: /v1
-//  Version: 0.0.1
+//  Host: 0.0.0.0:8080
+//  BasePath: /
+//  Version: 0.0.3
 //
 //  Consumes:
 //    - application/json

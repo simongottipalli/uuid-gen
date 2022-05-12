@@ -13,6 +13,6 @@ pipeline
 
 # Notes so far
 
-1. Create, install and generate code with [goswagger](https://goswagger.io)
-2. `go mod init uuid-gen` - generated go.mod and go.sum
+1. `go mod init uuid-gen` - generated go.mod and go.sum
+2. Use Makefile, Dockerfile and cloudbuild.yaml for more references to commands
 

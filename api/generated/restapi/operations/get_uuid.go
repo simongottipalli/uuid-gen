@@ -31,9 +31,9 @@ func NewGetUUID(ctx *middleware.Context, handler GetUUIDHandler) *GetUUID {
 
 /* GetUUID swagger:route GET /uuid getUuid
 
-Returns a uuid
+Get a uuid
 
-Description
+A single UUID
 
 */
 type GetUUID struct {

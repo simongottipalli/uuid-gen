@@ -10,13 +10,13 @@ import (
 
 	"github.com/go-openapi/runtime"
 
-	"uuid-gen/models"
+	"github.com/simongottipalli/uuid-gen/api/generated/models"
 )
 
 // GetUUIDOKCode is the HTTP code returned for type GetUUIDOK
 const GetUUIDOKCode int = 200
 
-/*GetUUIDOK A single UUID
+/*GetUUIDOK Successfully return a uuid
 
 swagger:response getUuidOK
 */
@@ -57,12 +57,14 @@ func (o *GetUUIDOK) WriteResponse(rw http.ResponseWriter, producer runtime.Produ
 	}
 }
 
-/*GetUUIDDefault fails
+// GetUUIDInternalServerErrorCode is the HTTP code returned for type GetUUIDInternalServerError
+const GetUUIDInternalServerErrorCode int = 500
 
-swagger:response getUuidDefault
+/*GetUUIDInternalServerError Error
+
+swagger:response getUuidInternalServerError
 */
-type GetUUIDDefault struct {
-	_statusCode int
+type GetUUIDInternalServerError struct {
 
 	/*
 	  In: Body
@@ -70,43 +72,27 @@ type GetUUIDDefault struct {
 	Payload *models.Error `json:"body,omitempty"`
 }
 
-// NewGetUUIDDefault creates GetUUIDDefault with default headers values
-func NewGetUUIDDefault(code int) *GetUUIDDefault {
-	if code <= 0 {
-		code = 500
-	}
+// NewGetUUIDInternalServerError creates GetUUIDInternalServerError with default headers values
+func NewGetUUIDInternalServerError() *GetUUIDInternalServerError {
 
-	return &GetUUIDDefault{
-		_statusCode: code,
-	}
+	return &GetUUIDInternalServerError{}
 }
 
-// WithStatusCode adds the status to the get UUID default response
-func (o *GetUUIDDefault) WithStatusCode(code int) *GetUUIDDefault {
-	o._statusCode = code
-	return o
-}
-
-// SetStatusCode sets the status to the get UUID default response
-func (o *GetUUIDDefault) SetStatusCode(code int) {
-	o._statusCode = code
-}
-
-// WithPayload adds the payload to the get UUID default response
-func (o *GetUUIDDefault) WithPayload(payload *models.Error) *GetUUIDDefault {
+// WithPayload adds the payload to the get Uuid internal server error response
+func (o *GetUUIDInternalServerError) WithPayload(payload *models.Error) *GetUUIDInternalServerError {
 	o.Payload = payload
 	return o
 }
 
-// SetPayload sets the payload to the get UUID default response
-func (o *GetUUIDDefault) SetPayload(payload *models.Error) {
+// SetPayload sets the payload to the get Uuid internal server error response
+func (o *GetUUIDInternalServerError) SetPayload(payload *models.Error) {
 	o.Payload = payload
 }
 
 // WriteResponse to the client
-func (o *GetUUIDDefault) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
+func (o *GetUUIDInternalServerError) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.WriteHeader(o._statusCode)
+	rw.WriteHeader(500)
 	if o.Payload != nil {
 		payload := o.Payload
 		if err := producer.Produce(rw, payload); err != nil {

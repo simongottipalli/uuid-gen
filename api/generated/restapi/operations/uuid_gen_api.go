@@ -20,9 +20,9 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewUUIDGeneratorAPI creates a new UUIDGenerator instance
-func NewUUIDGeneratorAPI(spec *loads.Document) *UUIDGeneratorAPI {
-	return &UUIDGeneratorAPI{
+// NewUUIDGenAPI creates a new UUIDGen instance
+func NewUUIDGenAPI(spec *loads.Document) *UUIDGenAPI {
+	return &UUIDGenAPI{
 		handlers:            make(map[string]map[string]http.Handler),
 		formats:             strfmt.Default,
 		defaultConsumes:     "application/json",
@@ -42,14 +42,17 @@ func NewUUIDGeneratorAPI(spec *loads.Document) *UUIDGeneratorAPI {
 
 		JSONProducer: runtime.JSONProducer(),
 
+		GetHandler: GetHandlerFunc(func(params GetParams) middleware.Responder {
+			return middleware.NotImplemented("operation Get has not yet been implemented")
+		}),
 		GetUUIDHandler: GetUUIDHandlerFunc(func(params GetUUIDParams) middleware.Responder {
 			return middleware.NotImplemented("operation GetUUID has not yet been implemented")
 		}),
 	}
 }
 
-/*UUIDGeneratorAPI Generates one or more UUIDs */
-type UUIDGeneratorAPI struct {
+/*UUIDGenAPI Generates one or more UUIDs */
+type UUIDGenAPI struct {
 	spec            *loads.Document
 	context         *middleware.Context
 	handlers        map[string]map[string]http.Handler
@@ -81,6 +84,8 @@ type UUIDGeneratorAPI struct {
 	//   - application/json
 	JSONProducer runtime.Producer
 
+	// GetHandler sets the operation handler for the get operation
+	GetHandler GetHandler
 	// GetUUIDHandler sets the operation handler for the get UUID operation
 	GetUUIDHandler GetUUIDHandler
 
@@ -104,52 +109,52 @@ type UUIDGeneratorAPI struct {
 }
 
 // UseRedoc for documentation at /docs
-func (o *UUIDGeneratorAPI) UseRedoc() {
+func (o *UUIDGenAPI) UseRedoc() {
 	o.useSwaggerUI = false
 }
 
 // UseSwaggerUI for documentation at /docs
-func (o *UUIDGeneratorAPI) UseSwaggerUI() {
+func (o *UUIDGenAPI) UseSwaggerUI() {
 	o.useSwaggerUI = true
 }
 
 // SetDefaultProduces sets the default produces media type
-func (o *UUIDGeneratorAPI) SetDefaultProduces(mediaType string) {
+func (o *UUIDGenAPI) SetDefaultProduces(mediaType string) {
 	o.defaultProduces = mediaType
 }
 
 // SetDefaultConsumes returns the default consumes media type
-func (o *UUIDGeneratorAPI) SetDefaultConsumes(mediaType string) {
+func (o *UUIDGenAPI) SetDefaultConsumes(mediaType string) {
 	o.defaultConsumes = mediaType
 }
 
 // SetSpec sets a spec that will be served for the clients.
-func (o *UUIDGeneratorAPI) SetSpec(spec *loads.Document) {
+func (o *UUIDGenAPI) SetSpec(spec *loads.Document) {
 	o.spec = spec
 }
 
 // DefaultProduces returns the default produces media type
-func (o *UUIDGeneratorAPI) DefaultProduces() string {
+func (o *UUIDGenAPI) DefaultProduces() string {
 	return o.defaultProduces
 }
 
 // DefaultConsumes returns the default consumes media type
-func (o *UUIDGeneratorAPI) DefaultConsumes() string {
+func (o *UUIDGenAPI) DefaultConsumes() string {
 	return o.defaultConsumes
 }
 
 // Formats returns the registered string formats
-func (o *UUIDGeneratorAPI) Formats() strfmt.Registry {
+func (o *UUIDGenAPI) Formats() strfmt.Registry {
 	return o.formats
 }
 
 // RegisterFormat registers a custom format validator
-func (o *UUIDGeneratorAPI) RegisterFormat(name string, format strfmt.Format, validator strfmt.Validator) {
+func (o *UUIDGenAPI) RegisterFormat(name string, format strfmt.Format, validator strfmt.Validator) {
 	o.formats.Add(name, format, validator)
 }
 
-// Validate validates the registrations in the UUIDGeneratorAPI
-func (o *UUIDGeneratorAPI) Validate() error {
+// Validate validates the registrations in the UUIDGenAPI
+func (o *UUIDGenAPI) Validate() error {
 	var unregistered []string
 
 	if o.JSONConsumer == nil {
@@ -160,6 +165,9 @@ func (o *UUIDGeneratorAPI) Validate() error {
 		unregistered = append(unregistered, "JSONProducer")
 	}
 
+	if o.GetHandler == nil {
+		unregistered = append(unregistered, "GetHandler")
+	}
 	if o.GetUUIDHandler == nil {
 		unregistered = append(unregistered, "GetUUIDHandler")
 	}
@@ -172,23 +180,23 @@ func (o *UUIDGeneratorAPI) Validate() error {
 }
 
 // ServeErrorFor gets a error handler for a given operation id
-func (o *UUIDGeneratorAPI) ServeErrorFor(operationID string) func(http.ResponseWriter, *http.Request, error) {
+func (o *UUIDGenAPI) ServeErrorFor(operationID string) func(http.ResponseWriter, *http.Request, error) {
 	return o.ServeError
 }
 
 // AuthenticatorsFor gets the authenticators for the specified security schemes
-func (o *UUIDGeneratorAPI) AuthenticatorsFor(schemes map[string]spec.SecurityScheme) map[string]runtime.Authenticator {
+func (o *UUIDGenAPI) AuthenticatorsFor(schemes map[string]spec.SecurityScheme) map[string]runtime.Authenticator {
 	return nil
 }
 
 // Authorizer returns the registered authorizer
-func (o *UUIDGeneratorAPI) Authorizer() runtime.Authorizer {
+func (o *UUIDGenAPI) Authorizer() runtime.Authorizer {
 	return nil
 }
 
 // ConsumersFor gets the consumers for the specified media types.
 // MIME type parameters are ignored here.
-func (o *UUIDGeneratorAPI) ConsumersFor(mediaTypes []string) map[string]runtime.Consumer {
+func (o *UUIDGenAPI) ConsumersFor(mediaTypes []string) map[string]runtime.Consumer {
 	result := make(map[string]runtime.Consumer, len(mediaTypes))
 	for _, mt := range mediaTypes {
 		switch mt {
@@ -205,7 +213,7 @@ func (o *UUIDGeneratorAPI) ConsumersFor(mediaTypes []string) map[string]runtime.
 
 // ProducersFor gets the producers for the specified media types.
 // MIME type parameters are ignored here.
-func (o *UUIDGeneratorAPI) ProducersFor(mediaTypes []string) map[string]runtime.Producer {
+func (o *UUIDGenAPI) ProducersFor(mediaTypes []string) map[string]runtime.Producer {
 	result := make(map[string]runtime.Producer, len(mediaTypes))
 	for _, mt := range mediaTypes {
 		switch mt {
@@ -221,7 +229,7 @@ func (o *UUIDGeneratorAPI) ProducersFor(mediaTypes []string) map[string]runtime.
 }
 
 // HandlerFor gets a http.Handler for the provided operation method and path
-func (o *UUIDGeneratorAPI) HandlerFor(method, path string) (http.Handler, bool) {
+func (o *UUIDGenAPI) HandlerFor(method, path string) (http.Handler, bool) {
 	if o.handlers == nil {
 		return nil, false
 	}
@@ -236,8 +244,8 @@ func (o *UUIDGeneratorAPI) HandlerFor(method, path string) (http.Handler, bool) 
 	return h, ok
 }
 
-// Context returns the middleware context for the UUID generator API
-func (o *UUIDGeneratorAPI) Context() *middleware.Context {
+// Context returns the middleware context for the UUID gen API
+func (o *UUIDGenAPI) Context() *middleware.Context {
 	if o.context == nil {
 		o.context = middleware.NewRoutableContext(o.spec, o, nil)
 	}
@@ -245,7 +253,7 @@ func (o *UUIDGeneratorAPI) Context() *middleware.Context {
 	return o.context
 }
 
-func (o *UUIDGeneratorAPI) initHandlerCache() {
+func (o *UUIDGenAPI) initHandlerCache() {
 	o.Context() // don't care about the result, just that the initialization happened
 	if o.handlers == nil {
 		o.handlers = make(map[string]map[string]http.Handler)
@@ -254,12 +262,16 @@ func (o *UUIDGeneratorAPI) initHandlerCache() {
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
+	o.handlers["GET"][""] = NewGet(o.context, o.GetHandler)
+	if o.handlers["GET"] == nil {
+		o.handlers["GET"] = make(map[string]http.Handler)
+	}
 	o.handlers["GET"]["/uuid"] = NewGetUUID(o.context, o.GetUUIDHandler)
 }
 
 // Serve creates a http handler to serve the API over HTTP
 // can be used directly in http.ListenAndServe(":8000", api.Serve(nil))
-func (o *UUIDGeneratorAPI) Serve(builder middleware.Builder) http.Handler {
+func (o *UUIDGenAPI) Serve(builder middleware.Builder) http.Handler {
 	o.Init()
 
 	if o.Middleware != nil {
@@ -272,24 +284,24 @@ func (o *UUIDGeneratorAPI) Serve(builder middleware.Builder) http.Handler {
 }
 
 // Init allows you to just initialize the handler cache, you can then recompose the middleware as you see fit
-func (o *UUIDGeneratorAPI) Init() {
+func (o *UUIDGenAPI) Init() {
 	if len(o.handlers) == 0 {
 		o.initHandlerCache()
 	}
 }
 
 // RegisterConsumer allows you to add (or override) a consumer for a media type.
-func (o *UUIDGeneratorAPI) RegisterConsumer(mediaType string, consumer runtime.Consumer) {
+func (o *UUIDGenAPI) RegisterConsumer(mediaType string, consumer runtime.Consumer) {
 	o.customConsumers[mediaType] = consumer
 }
 
 // RegisterProducer allows you to add (or override) a producer for a media type.
-func (o *UUIDGeneratorAPI) RegisterProducer(mediaType string, producer runtime.Producer) {
+func (o *UUIDGenAPI) RegisterProducer(mediaType string, producer runtime.Producer) {
 	o.customProducers[mediaType] = producer
 }
 
 // AddMiddlewareFor adds a http middleware to existing handler
-func (o *UUIDGeneratorAPI) AddMiddlewareFor(method, path string, builder middleware.Builder) {
+func (o *UUIDGenAPI) AddMiddlewareFor(method, path string, builder middleware.Builder) {
 	um := strings.ToUpper(method)
 	if path == "/" {
 		path = ""

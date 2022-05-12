@@ -2,31 +2,37 @@ swagger: "2.0"
 info:
   title: UUID Generator
   description: Generates one or more UUIDs
-  version: 0.0.1
-
-# host: api.example.com
-basePath: /v1
-schemes:
-  - http
-
+  version: 0.0.3
+host: 0.0.0.0:8080
 paths:
-  /uuid:
+  /:
     get:
-      summary: Returns a uuid
-      description: Description
-      produces:
-        - application/json
+      summary: readiness check
+      description: readiness check
       responses:
         200:    # status code
-          description: A single UUID
+          $ref: '#/responses/200'
+  /uuid:
+    get:
+      summary: Get a uuid
+      description: A single UUID
+      produces: 
+        - application/json
+      responses:
+        200:
+          description: Successfully return a uuid
           schema:
-            type: object
             $ref: '#/definitions/GetUUIDResponse'
-        default:
-          description: fails
-          schema:
-            type: object
-            $ref: '#/definitions/Error'
+        500:
+          $ref: '#/responses/500'
+
+responses:
+  200:
+    description: Success
+  500:
+    description: Error
+    schema:
+      $ref: '#/definitions/Error'
 
 definitions:
   GetUUIDResponse:
@@ -43,3 +49,4 @@ definitions:
     properties:
       error:
         type: string
+        description: OK

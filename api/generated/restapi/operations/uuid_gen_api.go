@@ -45,6 +45,9 @@ func NewUUIDGenAPI(spec *loads.Document) *UUIDGenAPI {
 		GetHandler: GetHandlerFunc(func(params GetParams) middleware.Responder {
 			return middleware.NotImplemented("operation Get has not yet been implemented")
 		}),
+		GetUUIDHandler: GetUUIDHandlerFunc(func(params GetUUIDParams) middleware.Responder {
+			return middleware.NotImplemented("operation GetUUID has not yet been implemented")
+		}),
 	}
 }
 
@@ -83,6 +86,8 @@ type UUIDGenAPI struct {
 
 	// GetHandler sets the operation handler for the get operation
 	GetHandler GetHandler
+	// GetUUIDHandler sets the operation handler for the get UUID operation
+	GetUUIDHandler GetUUIDHandler
 
 	// ServeError is called when an error is received, there is a default handler
 	// but you can set your own with this
@@ -162,6 +167,9 @@ func (o *UUIDGenAPI) Validate() error {
 
 	if o.GetHandler == nil {
 		unregistered = append(unregistered, "GetHandler")
+	}
+	if o.GetUUIDHandler == nil {
+		unregistered = append(unregistered, "GetUUIDHandler")
 	}
 
 	if len(unregistered) > 0 {
@@ -255,6 +263,10 @@ func (o *UUIDGenAPI) initHandlerCache() {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
 	o.handlers["GET"][""] = NewGet(o.context, o.GetHandler)
+	if o.handlers["GET"] == nil {
+		o.handlers["GET"] = make(map[string]http.Handler)
+	}
+	o.handlers["GET"]["/uuid"] = NewGetUUID(o.context, o.GetUUIDHandler)
 }
 
 // Serve creates a http handler to serve the API over HTTP

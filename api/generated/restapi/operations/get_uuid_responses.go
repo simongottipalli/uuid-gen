@@ -16,7 +16,7 @@ import (
 // GetUUIDOKCode is the HTTP code returned for type GetUUIDOK
 const GetUUIDOKCode int = 200
 
-/*GetUUIDOK A single UUID
+/*GetUUIDOK Successfully return a uuid
 
 swagger:response getUuidOK
 */
@@ -49,6 +49,50 @@ func (o *GetUUIDOK) SetPayload(payload *models.GetUUIDResponse) {
 func (o *GetUUIDOK) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
 	rw.WriteHeader(200)
+	if o.Payload != nil {
+		payload := o.Payload
+		if err := producer.Produce(rw, payload); err != nil {
+			panic(err) // let the recovery middleware deal with this
+		}
+	}
+}
+
+// GetUUIDInternalServerErrorCode is the HTTP code returned for type GetUUIDInternalServerError
+const GetUUIDInternalServerErrorCode int = 500
+
+/*GetUUIDInternalServerError Error
+
+swagger:response getUuidInternalServerError
+*/
+type GetUUIDInternalServerError struct {
+
+	/*
+	  In: Body
+	*/
+	Payload *models.Error `json:"body,omitempty"`
+}
+
+// NewGetUUIDInternalServerError creates GetUUIDInternalServerError with default headers values
+func NewGetUUIDInternalServerError() *GetUUIDInternalServerError {
+
+	return &GetUUIDInternalServerError{}
+}
+
+// WithPayload adds the payload to the get Uuid internal server error response
+func (o *GetUUIDInternalServerError) WithPayload(payload *models.Error) *GetUUIDInternalServerError {
+	o.Payload = payload
+	return o
+}
+
+// SetPayload sets the payload to the get Uuid internal server error response
+func (o *GetUUIDInternalServerError) SetPayload(payload *models.Error) {
+	o.Payload = payload
+}
+
+// WriteResponse to the client
+func (o *GetUUIDInternalServerError) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
+
+	rw.WriteHeader(500)
 	if o.Payload != nil {
 		payload := o.Payload
 		if err := producer.Produce(rw, payload); err != nil {

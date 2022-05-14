@@ -8,7 +8,6 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/runtime/middleware"
 
 	"github.com/simongottipalli/uuid-gen/api/generated/restapi/operations"
 	"github.com/simongottipalli/uuid-gen/handlers"
@@ -37,12 +36,6 @@ func configureAPI(api *operations.UUIDGenAPI) http.Handler {
 	api.JSONConsumer = runtime.JSONConsumer()
 
 	api.JSONProducer = runtime.JSONProducer()
-
-	if api.GetHandler == nil {
-		api.GetHandler = operations.GetHandlerFunc(func(params operations.GetParams) middleware.Responder {
-			return operations.NewGetOK()
-		})
-	}
 
 	handlers.RegisterHandlers(api)
 	api.PreServerShutdown = func() {}

@@ -7,7 +7,7 @@
 //    http
 //  Host: 0.0.0.0:8080
 //  BasePath: /
-//  Version: 0.0.2
+//  Version: 0.0.3
 //
 //  Consumes:
 //    - application/json

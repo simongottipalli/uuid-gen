@@ -18,120 +18,36 @@ var (
 
 func init() {
 	SwaggerJSON = json.RawMessage([]byte(`{
+  "schemes": [
+    "http"
+  ],
   "swagger": "2.0",
   "info": {
     "description": "Generates one or more UUIDs",
     "title": "UUID Generator",
-    "version": "0.0.3"
+    "version": "0.0.1"
   },
-  "host": "0.0.0.0:8080",
+  "basePath": "/v1",
   "paths": {
-    "/": {
-      "get": {
-        "description": "readiness check",
-        "summary": "readiness check",
-        "responses": {
-          "200": {
-            "$ref": "#/responses/200"
-          }
-        }
-      }
-    },
     "/uuid": {
       "get": {
-        "description": "A single UUID",
+        "description": "Description",
         "produces": [
           "application/json"
         ],
-        "summary": "Get a uuid",
+        "summary": "Returns a uuid",
         "responses": {
           "200": {
-            "description": "Successfully return a uuid",
+            "description": "A single UUID",
             "schema": {
+              "type": "object",
               "$ref": "#/definitions/GetUUIDResponse"
             }
           },
-          "500": {
-            "$ref": "#/responses/500"
-          }
-        }
-      }
-    }
-  },
-  "definitions": {
-    "Error": {
-      "type": "object",
-      "required": [
-        "error"
-      ],
-      "properties": {
-        "error": {
-          "description": "OK",
-          "type": "string"
-        }
-      }
-    },
-    "GetUUIDResponse": {
-      "type": "object",
-      "required": [
-        "uuid"
-      ],
-      "properties": {
-        "uuid": {
-          "type": "string"
-        }
-      }
-    }
-  },
-  "responses": {
-    "200": {
-      "description": "Success"
-    },
-    "500": {
-      "description": "Error",
-      "schema": {
-        "$ref": "#/definitions/Error"
-      }
-    }
-  }
-}`))
-	FlatSwaggerJSON = json.RawMessage([]byte(`{
-  "swagger": "2.0",
-  "info": {
-    "description": "Generates one or more UUIDs",
-    "title": "UUID Generator",
-    "version": "0.0.3"
-  },
-  "host": "0.0.0.0:8080",
-  "paths": {
-    "/": {
-      "get": {
-        "description": "readiness check",
-        "summary": "readiness check",
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/uuid": {
-      "get": {
-        "description": "A single UUID",
-        "produces": [
-          "application/json"
-        ],
-        "summary": "Get a uuid",
-        "responses": {
-          "200": {
-            "description": "Successfully return a uuid",
+          "default": {
+            "description": "fails",
             "schema": {
-              "$ref": "#/definitions/GetUUIDResponse"
-            }
-          },
-          "500": {
-            "description": "Error",
-            "schema": {
+              "type": "object",
               "$ref": "#/definitions/Error"
             }
           }
@@ -147,7 +63,6 @@ func init() {
       ],
       "properties": {
         "error": {
-          "description": "OK",
           "type": "string"
         }
       }
@@ -163,15 +78,67 @@ func init() {
         }
       }
     }
+  }
+}`))
+	FlatSwaggerJSON = json.RawMessage([]byte(`{
+  "schemes": [
+    "http"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "Generates one or more UUIDs",
+    "title": "UUID Generator",
+    "version": "0.0.1"
   },
-  "responses": {
-    "200": {
-      "description": "Success"
+  "basePath": "/v1",
+  "paths": {
+    "/uuid": {
+      "get": {
+        "description": "Description",
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Returns a uuid",
+        "responses": {
+          "200": {
+            "description": "A single UUID",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/GetUUIDResponse"
+            }
+          },
+          "default": {
+            "description": "fails",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Error": {
+      "type": "object",
+      "required": [
+        "error"
+      ],
+      "properties": {
+        "error": {
+          "type": "string"
+        }
+      }
     },
-    "500": {
-      "description": "Error",
-      "schema": {
-        "$ref": "#/definitions/Error"
+    "GetUUIDResponse": {
+      "type": "object",
+      "required": [
+        "uuid"
+      ],
+      "properties": {
+        "uuid": {
+          "type": "string"
+        }
       }
     }
   }

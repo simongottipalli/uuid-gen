@@ -60,7 +60,7 @@ jobs:
         uses: actions/checkout@main
 
       - name: Download Artifact
-        uses: actions/download-artifact@main
+        uses: actions/download-artifact@build-and-deploy-frontend
         with:
           name: build
           path: .docker/build

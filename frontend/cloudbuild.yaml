@@ -2,7 +2,8 @@ steps:
   - name: 'bash'
     args: ['echo', 'Let us begin!']
   - name: 'bash'
-    args: [ 'cd', './frontend' ]
+    entrypoint: /bin/sh
+    args: [ 'cd', 'frontend' ]
   - name: 'npm'
     args: [ 'run', 'build' ]
   - name: 'bash'

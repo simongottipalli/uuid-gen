@@ -86,15 +86,15 @@ jobs:
       # Build and push image to Google Container Registry
       - name: Build & Push
         run: |-
-          gcloud builds submit --quiet --tag "europe-west1-docker.pkg.dev/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA"
+          gcloud builds submit --quiet --tag "europe-west1-docker.pkg.dev/$PROJECT_ID/docker-builds/frontend:$GITHUB_SHA"
         working-directory: ./frontend/.docker
 
       # Deploy image to Cloud Run
       - name: Deploy GCR
         run: |-
-          gcloud run deploy "$SERVICE_NAME" \
+          gcloud run deploy cloudrunservice \
             --quiet \
             --region "$RUN_REGION" \
-            --image "europe-west1-docker.pkg.dev/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA" \
+            --image "europe-west1-docker.pkg.dev/$PROJECT_ID/docker-builds/frontend:$GITHUB_SHA" \
             --platform "managed" \
             --allow-unauthenticated

@@ -20,14 +20,14 @@ steps:
     args:
       - clone
       - --recurse-submodules
-      - git@github.com:GIT_USERNAME/GIT_REPOSITORY
+      - git@github.com:simongottipalli/uuid-gen
     volumes:
       - name: 'ssh'
         path: /root/.ssh
 
 availableSecrets:
   secretManager:
-    - versionName: projects/PROJECT_ID/secrets/secret-name/versions/latest
+    - versionName: projects/$PROJECT_ID/secrets/git-access/versions/latest
       env: 'SSH_KEY'
 #  - name: 'bash'
 #    args: ['cd', 'frontend']

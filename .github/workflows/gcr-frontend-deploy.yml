@@ -50,8 +50,8 @@ jobs:
       - name: Archive Production Artifact
         uses: actions/upload-artifact@main
         with:
-          name: ./frontend/build
-          path: build
+          name: build
+          path: ./build
 
   deploy-gcr:
     name: Deploy to GCR

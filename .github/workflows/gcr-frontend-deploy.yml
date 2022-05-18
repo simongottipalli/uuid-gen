@@ -21,15 +21,15 @@ jobs:
 
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@build-and-deploy-frontend
+        uses: actions/checkout@main
 
       - name: Setup Node.js (NPM)
-        uses: actions/setup-node@build-and-deploy-frontend
+        uses: actions/setup-node@master
         with:
           node-version: '17.x'
 
       - name: Use cached node_modules
-        uses: actions/cache@build-and-deploy-frontend
+        uses: actions/cache@master
         with:
           path: node_modules
           key: nodeModules-${{ hashFiles('**/yarn.lock') }}
@@ -45,9 +45,9 @@ jobs:
         run: npm run build
 
       - name: Archive Production Artifact
-        uses: actions/upload-artifact@build-and-deploy-frontend
+        uses: actions/upload-artifact@main
         with:
-          name: build
+          name: ./build
           path: build
 
   deploy-gcr:
@@ -57,10 +57,10 @@ jobs:
 
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@build-and-deploy-frontend
+        uses: actions/checkout@main
 
       - name: Download Artifact
-        uses: actions/download-artifact@build-and-deploy-frontend
+        uses: actions/download-artifact@main
         with:
           name: build
           path: .docker/build

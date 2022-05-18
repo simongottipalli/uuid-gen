@@ -81,13 +81,13 @@ jobs:
         uses: google-github-actions/setup-gcloud@v0.2.1
 
       - name: List files in the repository
-        run: ls
+        run: ls .docker
 
       # Build and push image to Google Container Registry
       - name: Build & Push
         run: |-
           gcloud builds submit --quiet --tag "europe-west1-docker.pkg.dev/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA"
-        working-directory: .docker
+        working-directory: ./frontend/.docker
 
       # Deploy image to Cloud Run
       - name: Deploy GCR

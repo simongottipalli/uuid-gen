@@ -1,10 +1,27 @@
 steps:
-  - name: node
-    entrypoint: npm
-    args: ['install', './frontend']
-#  - name: node
-#    entrypoint: npm
-#    args: ['test', '--prefix', './frontend']
-  - name: node
-    entrypoint: npm
-    args: ['run', 'build', '--prefix', './frontend']
+  - name: 'bash'
+    args: [ 'cd', 'frontend' ]
+  - name: 'npm'
+    args: [ 'run', 'build' ]
+  - name: 'bash'
+    args: ['cp', '-r', 'build', '.docker']
+  - name: 'bash'
+    args: [ 'cd', '.docker' ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'build', '-t', 'europe-west1-docker.pkg.dev/$PROJECT_ID/docker-builds/frontend', '.' ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'europe-west1-docker.pkg.dev/$PROJECT_ID/docker-builds/frontend']
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'cloudrunservice'
+      - '--image'
+      - 'europe-west1-docker.pkg.dev/$PROJECT_ID/docker-builds/frontend'
+      - '--region'
+      - 'europe-west1'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+images:
+  - 'europe-west1-docker.pkg.dev/$PROJECT_ID/docker-builds/frontend'

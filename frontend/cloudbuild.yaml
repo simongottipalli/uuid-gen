@@ -1,7 +1,7 @@
 steps:
   - name: node
     entrypoint: npm
-    args: ['install' './frontend/package.json']
+    args: ['install', './frontend/package.json']
   - name: node
     entrypoint: npm
     args: ['test']

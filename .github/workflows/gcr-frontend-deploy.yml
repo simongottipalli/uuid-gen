@@ -57,9 +57,9 @@ jobs:
     name: Deploy to GCR
     needs: build
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./frontend
+#    defaults:
+#      run:
+#        working-directory: ./frontend
 
     steps:
       - name: Checkout Repo
@@ -79,6 +79,9 @@ jobs:
 
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v0.2.1
+
+      - name: List files in the repository
+        run: ls
 
       # Build and push image to Google Container Registry
       - name: Build & Push

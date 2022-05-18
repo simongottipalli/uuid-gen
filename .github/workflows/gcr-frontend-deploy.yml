@@ -89,7 +89,7 @@ jobs:
       - name: Build & Push
         run: |-
           gcloud builds submit --tag "europe-west1-docker.pkg.dev/$PROJECT_ID/docker-builds/frontend"
-        working-directory: ./.docker
+        working-directory: ./frontend/.docker
 
       # Deploy image to Cloud Run
       - name: Deploy GCR

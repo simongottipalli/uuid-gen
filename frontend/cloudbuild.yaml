@@ -1,6 +1,7 @@
 steps:
   - name: 'bash'
     args: ['echo', 'Let us begin!']
+# Access the id_github file from Secret Manager, and setup SSH
   - name: 'gcr.io/cloud-builders/git'
     secretEnv: ['SSH_KEY']
     entrypoint: 'bash'
@@ -19,13 +20,14 @@ steps:
     args:
       - clone
       - --recurse-submodules
-      - git@github.com:simongottipalli/uuid-gen
+      - git@github.com:GIT_USERNAME/GIT_REPOSITORY
     volumes:
       - name: 'ssh'
-      - path: /root/.ssh
+        path: /root/.ssh
+
 availableSecrets:
   secretManager:
-    - versionName: projects/$PROJECT_ID/secrets/git-access/versions/latest
+    - versionName: projects/PROJECT_ID/secrets/secret-name/versions/latest
       env: 'SSH_KEY'
 #  - name: 'bash'
 #    args: ['cd', 'frontend']

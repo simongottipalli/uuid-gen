@@ -4,12 +4,11 @@ on:
   push:
     branches:
       - main
-      - build-and-deploy-frontend
 
 env:
   PROJECT_ID: uuid-gen
   RUN_REGION: europe-west1
-  SERVICE_NAME: uuid-gen
+  SERVICE_NAME: frontend
 
 jobs:
   build:
@@ -94,7 +93,7 @@ jobs:
       # Deploy image to Cloud Run
       - name: Deploy GCR
         run: |-
-          gcloud run deploy frontend \
+          gcloud run deploy $SERVICE_NAME \
             --quiet \
             --region "$RUN_REGION" \
             --image "europe-west1-docker.pkg.dev/$PROJECT_ID/docker-builds/frontend" \

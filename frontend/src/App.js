@@ -4,7 +4,7 @@ import './App.css';
 class UUIDGen extends React.Component {
   constructor(props) {
     super(props);
-    this.basePath = "http://localhost:8080"
+    this.basePath = "https://uuid-gen-g6d5qy6jra-ew.a.run.app"
     this.genUUIDPath = "/uuid"
     this.state = {
       error: null,

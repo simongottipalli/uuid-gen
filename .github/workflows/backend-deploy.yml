@@ -1,8 +1,8 @@
-name: Go
+name: Backend - Build and Deploy
 
 on:
   push:
-    branches: [ main, go-github-workflow ]
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 

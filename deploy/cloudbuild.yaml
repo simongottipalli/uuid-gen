@@ -7,7 +7,7 @@ steps:
   args:
   - 'run'
   - 'deploy'
-  - 'cloudrunservice'
+  - 'uuid-gen'
   - '--image'
   - 'europe-west1-docker.pkg.dev/$PROJECT_ID/docker-builds/image'
   - '--region'

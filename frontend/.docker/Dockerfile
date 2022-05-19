@@ -1,7 +1,7 @@
 FROM node:17.9.0-alpine as react-build
 
 WORKDIR /app
-COPY ./frontend ./
+COPY ../ ./
 
 FROM fholzer/nginx-brotli:v1.12.2
 

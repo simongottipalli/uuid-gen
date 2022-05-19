@@ -15,7 +15,7 @@ env:
 
 jobs:
   build:
-    name: Build React App
+    name: Build Frontend 🧱
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -48,9 +48,6 @@ jobs:
       - name: Build Development
         run: npm run build
 
-      - name: List files in the repository
-        run: ls
-
       - name: Archive Production Artifact
         uses: actions/upload-artifact@main
         with:
@@ -58,7 +55,7 @@ jobs:
           path: frontend/build
 
   deploy-gcr:
-    name: Deploy to GCR
+    name: Deploy to GCP 🛸
     needs: build
     runs-on: ubuntu-latest
     defaults:
@@ -83,9 +80,6 @@ jobs:
 
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v0.2.1
-
-      - name: List files in the repository
-        run: ls .docker
 
       # Build and push image to Google Container Registry
       - name: Build & Push

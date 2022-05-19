@@ -1,4 +1,6 @@
 import React from 'react'
+import {Grid, Typography} from "@mui/material";
+import {ContentCopy} from "@mui/icons-material";
 
 class Uuid extends React.Component {
   constructor(props) {
@@ -34,6 +36,36 @@ class Uuid extends React.Component {
       )
   }
 
+  renderUuid(items) {
+    return (
+        <Typography variant="h4" component="div" sx={{
+          flexGrow: 1,
+          textAlign: 'right',
+          fontWeight: 'bold',
+          verticalAlign: 'top',
+          pb: 5,
+        }}>
+          {items.uuid}
+        </Typography>
+    );
+  }
+
+  renderPage(items) {
+    return (
+        <Grid container spacing={2} sx={{
+          maxWidth: '80%',
+          textAlign: 'center',
+          color: 'white',
+        }}>
+          <Grid item xs={11} bgcolor={"blue"}>
+            {this.renderUuid(items)}
+          </Grid>
+          <Grid item xs={1}>
+            <ContentCopy size="large"/>
+          </Grid>
+        </Grid>
+    );
+  }
   render() {
     const { error, isLoaded, items } = this.state;
     if (error) {
@@ -41,14 +73,12 @@ class Uuid extends React.Component {
     } else if (!isLoaded) {
       return <div>Loading...</div>;
     } else {
+
       return (
-          <div id="content">
-            <code>
-              {items.uuid}
-            </code>
-          </div>
+          this.renderPage(items)
       );
     }
   }
 }
+
 export default Uuid;

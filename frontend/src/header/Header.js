@@ -1,10 +1,11 @@
 import * as React from 'react';
-import BannerRow from "./BannerRow";
+import AppToolbar from "./Toolbar";
 
 export default function Header() {
+
     return(
         <React.StrictMode>
-            <BannerRow />
+            <AppToolbar />
         </React.StrictMode>
     );
 }

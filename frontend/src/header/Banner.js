@@ -1,18 +1,13 @@
-import React from 'react';
 import '../index.css';
-import Divider from '@mui/material/Divider';
-import Box from '@mui/material/Box';
+import {Link} from "@mui/material";
 
 export default function Banner() {
     return (
-        <Box sx={{
-            color: 'text.primary',
-            zIndex: 'modal',
-            textAlign: 'center',
-            fontSize: 'h2.fontSize',
+        <Link href="/" component="button" color="inherit" variant="h5" underline="none" sx={{
+            fontWeight: 'bold',
+            color: 'white',
         }}>
             UUID Gen
-            <Divider variant="inset" light />
-        </Box>
+        </Link>
     );
 }

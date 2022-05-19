@@ -1,3 +1,5 @@
+current_dir = `pwd`
+
 .PHONY: swagger
 swagger:
 	swagger generate server -t api/generated -A uuid-gen --main-package ../../../cmd/uuid-gen
@@ -10,6 +12,6 @@ build:
 run:
 	docker run --rm --publish 8080:8080 uuid-gen
 
-.PHONY: build-frontend
-build-frontend:
-	docker build --tag uuid-gen ./frontend
+.PHONY: frontend
+frontend:
+	cd frontend && npm start

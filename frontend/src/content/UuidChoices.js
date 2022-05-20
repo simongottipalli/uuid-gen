@@ -2,8 +2,8 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import UuidContent from "./UuidContent";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -17,8 +17,8 @@ function TabPanel(props) {
             {...other}
         >
             {value === index && (
-                <Box sx={{ p: 3 }}>
-                    <Typography>{children}</Typography>
+                <Box sx={{ display: "flex", p: 5, width:'100%'}}>
+                    {children}
                 </Box>
             )}
         </div>
@@ -62,25 +62,21 @@ export default function VerticalTabs() {
                 <Tab label="UUID V3" {...a11yProps(2)} />
                 <Tab label="UUID V2" {...a11yProps(3)} />
                 <Tab label="UUID V1" {...a11yProps(4)} />
-                {/*<Tab label="Item Four" {...a11yProps(3)} />*/}
-                {/*<Tab label="Item Five" {...a11yProps(4)} />*/}
-                {/*<Tab label="Item Six" {...a11yProps(5)} />*/}
-                {/*<Tab label="Item Seven" {...a11yProps(6)} />*/}
             </Tabs>
             <TabPanel value={value} index={0}>
-                UUID V4 Content
+                <UuidContent />
             </TabPanel>
             <TabPanel value={value} index={1}>
-                GUID Content
+                <UuidContent />
             </TabPanel>
             <TabPanel value={value} index={2}>
-                UUID V3 Content
+                <UuidContent />
             </TabPanel>
             <TabPanel value={value} index={3}>
-                UUID V2 Content
+                <UuidContent />
             </TabPanel>
             <TabPanel value={value} index={4}>
-                UUID V1 Content
+                <UuidContent />
             </TabPanel>
         </Box>
     );

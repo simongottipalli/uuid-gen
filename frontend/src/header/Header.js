@@ -1,11 +1,10 @@
 import * as React from 'react';
-import AppToolbar from "./Toolbar";
+import ResponsiveToolBar from "./ToolBar";
 
 export default function Header() {
-
     return(
         <React.StrictMode>
-            <AppToolbar />
+            <ResponsiveToolBar />
         </React.StrictMode>
     );
 }

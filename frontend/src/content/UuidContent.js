@@ -1,6 +1,6 @@
 import React from "react";
 import Uuid from "./Uuid";
-import {Button, Container, Paper, Stack, styled} from "@mui/material";
+import {Button, Paper, Stack, styled} from "@mui/material";
 import {RefreshOutlined} from "@mui/icons-material";
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -14,7 +14,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function UuidContent() {
     return (
-        <Stack width='100%'>
+        <Stack width='100%' color="white">
             <Item>
                 Click on the UUID to copy..
             </Item>

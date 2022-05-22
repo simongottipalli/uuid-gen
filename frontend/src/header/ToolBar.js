@@ -34,7 +34,6 @@ const ResponsiveToolBar = () => {
                     aria-controls="menu-appbar"
                     aria-haspopup="true"
                     onClick={handleOpenNavMenu}
-                    sx={{color: "white"}}
                 >
                     <MenuIcon />
                 </IconButton>
@@ -57,7 +56,7 @@ const ResponsiveToolBar = () => {
                     }}
                 >
                     {pages.map((page) => (
-                        <MenuItem key={page} onClick={handleCloseNavMenu} sx={{bgcolor:"#28293D", color:"aliceblue"}}>
+                        <MenuItem key={page} onClick={handleCloseNavMenu}>
                             <Typography textAlign="center">{page}</Typography>
                         </MenuItem>
                     ))}
@@ -73,7 +72,7 @@ const ResponsiveToolBar = () => {
                     <Button
                         key={page}
                         onClick={handleCloseNavMenu}
-                        sx={{ my: 2, color: 'white', display: 'block' }}
+                        sx={{ my: 2, display: 'block' }}
                     >
                         {page}
                     </Button>
@@ -83,7 +82,7 @@ const ResponsiveToolBar = () => {
     }
 
     return (
-        <AppBar position="static" color="transparent">
+        <AppBar position="static">
             <Container maxWidth="xl" >
                 <Toolbar disableGutters>
                     <TitleIcon />
@@ -101,13 +100,13 @@ const ResponsiveToolBar = () => {
 
 function TitleIcon() {
     return (
-        <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, color: 'white' }} />
+        <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
     );
 }
 
 function TitleIconMobileView()  {
     return (
-        <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1, color: 'white' }} />
+        <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
     )
 }
 
@@ -124,7 +123,6 @@ function TitleHeader()  {
                 fontFamily: 'monospace',
                 fontWeight: 700,
                 letterSpacing: '.3rem',
-                color: 'white',
                 textDecoration: 'none',
             }}
         >
@@ -147,7 +145,6 @@ function TitleHeaderMobileView()    {
                 fontFamily: 'monospace',
                 fontWeight: 700,
                 letterSpacing: '.3rem',
-                color: 'white',
                 textDecoration: 'none',
             }}
         >

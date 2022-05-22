@@ -5,7 +5,7 @@ import UuidContent from "./UuidContent";
 
 export default function Content() {
     return(
-        <Container>
+        <Container maxWidth="xl">
             <UuidContent />
             <UuidChoices />
         </Container>

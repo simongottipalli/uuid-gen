@@ -4,9 +4,17 @@ import Box from "@mui/material/Box";
 
 export default function UuidChoices() {
     return (
-        <Box component="div"
-            sx={{ display: 'flex', justifyContent: 'space-around' }}>
-            <FormGroup row>
+        <Box component="span" sx={{
+            display: 'flex',
+            justifyContent: 'space-evenly',
+            height: 100,
+            alignItems: 'center',
+            p: 3,
+            m: 2,
+        }}>
+            <FormGroup row sx={{
+                justifyContent: 'space-evenly'
+            }}>
                 <FormControlLabel control={<Checkbox />} label="Uppercase" />
                 <FormControlLabel control={<Checkbox />} label="Remove hyphens" />
                 <FormControlLabel control={<Checkbox />} label="Numbers only" />

@@ -14,6 +14,7 @@ const theme = createTheme({
         }
     },
 
+
     typography: {
         h5: {
             color: '#F0F8FF',
@@ -43,7 +44,17 @@ const theme = createTheme({
                     color: '#F0F8FF',
                 }
             }
-        }
+        },
+        MuiLinearProgress: {
+            styleOverrides: {
+                barColorPrimary:    {
+                    backgroundColor: '#0288d1',
+                },
+                colorPrimary: {
+                    backgroundColor: "#FFF0F5",
+                },
+            }
+        },
     },
 });
 

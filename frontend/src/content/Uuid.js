@@ -1,5 +1,5 @@
 import React from 'react'
-import {LinearProgress, Typography} from "@mui/material";
+import {LinearProgress, Typography, Box} from "@mui/material";
 
 class Uuid extends React.Component {
   constructor(props) {
@@ -42,17 +42,23 @@ class Uuid extends React.Component {
     } else if (!isLoaded) {
       // TODO: Get width from parent
         return (
-            <LinearProgress />
+            <Box sx={{height: 100, alignItems: 'center'}}>
+                <LinearProgress />
+            </Box>
         )
     } else {
 
       return (
-          <Typography variant="h5" component="div" sx={{
-              fontWeight: 'bold',
-              verticalAlign: 'center',
+          <Box component="span" sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: 100,
           }}>
-              {items.uuid}
-          </Typography>
+              <Typography variant="h3" fontWeight="bold">
+                  {items.uuid}
+              </Typography>
+          </Box>
       );
     }
   }

@@ -1,12 +1,16 @@
 import * as React from 'react';
 import {Container} from "@mui/material";
+import Instructions from "./Instructions"
 import UuidChoices from "./UuidOptions";
-import UuidContent from "./UuidContent";
+import Uuid from "./Uuid";
+import ContentButtons from "./ContentButtons";
 
 export default function Content() {
     return(
         <Container maxWidth="xl">
-            <UuidContent />
+            <Instructions />
+            <Uuid />
+            <ContentButtons />
             <UuidChoices />
         </Container>
     );

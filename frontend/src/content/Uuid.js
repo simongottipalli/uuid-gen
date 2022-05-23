@@ -1,5 +1,6 @@
 import React from 'react'
-import {LinearProgress, Typography, Box} from "@mui/material";
+import {LinearProgress, Typography, Box, Button} from "@mui/material";
+import {CopyToClipboard} from "react-copy-to-clipboard/src";
 
 class Uuid extends React.Component {
   constructor(props) {
@@ -12,7 +13,6 @@ class Uuid extends React.Component {
       items: {}
     };
   }
-
   componentDidMount() {
     fetch(this.basePath + this.genUUIDPath)
       .then(res => res.json())
@@ -40,24 +40,29 @@ class Uuid extends React.Component {
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
-      // TODO: Get width from parent
         return (
             <Box sx={{height: 100, alignItems: 'center'}}>
                 <LinearProgress />
             </Box>
         )
     } else {
-
-      return (
+        return (
           <Box component="span" sx={{
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
               height: 100,
           }}>
-              <Typography variant="h3" fontWeight="bold">
-                  {items.uuid}
-              </Typography>
+              {/*TODO: Show a message "Copied"*/}
+              <CopyToClipboard text={items.uuid}>
+                  <Button sx={{textTransform:'none'}}>
+                      <Typography variant="h3" fontWeight="bold">
+                           {items.uuid}
+                      </Typography>
+                  </Button>
+
+              </CopyToClipboard>
+
           </Box>
       );
     }

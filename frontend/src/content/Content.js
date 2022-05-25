@@ -18,6 +18,7 @@ class Content extends React.Component {
             }
         };
         this.onCaseChange = this.onCaseChange.bind(this)
+        this.removeHyphens = this.removeHyphens.bind(this)
     }
 
     componentDidMount() {
@@ -61,7 +62,26 @@ class Content extends React.Component {
                 isUppercase: stateToSet,
                 uuid: uuidToSet,
                 isLoaded: true,
+                version: this.state.items.version,
+                isHyphenated: this.state.items.isHyphenated,
+                isNumeric: this.state.items.isNumeric,
         }})
+    }
+
+    removeHyphens() {
+        let uuidToSet
+        if (this.state.items.uuid.includes("-"))    {
+            uuidToSet = this.state.items.uuid.replaceAll("-", "")
+        }
+        this.setState({
+            items:  {
+                isHyphenated: false,
+                uuid: uuidToSet,
+                isLoaded: true,
+                version: this.state.items.version,
+                isUppercase: this.state.items.isUppercase,
+                isNumeric: this.state.items.isNumeric,
+            }})
     }
 
     render() {
@@ -71,7 +91,10 @@ class Content extends React.Component {
                 <Instructions />
                 <Uuid item={this.state.items}/>
                 <ContentButtons />
-                <UuidChoices onChange={this.onCaseChange} />
+                <UuidChoices
+                    onCaseChange={this.onCaseChange}
+                    removeHyphens={this.removeHyphens}
+                />
             </Container>
         );
     }

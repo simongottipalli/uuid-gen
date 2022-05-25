@@ -5,12 +5,16 @@ import Box from "@mui/material/Box";
 class UuidChoices extends React.Component   {
     constructor(props) {
         super(props);
-        this.handleChange = this.handleChange.bind(this)
-
+        this.handleCaseChange = this.handleCaseChange.bind(this)
+        this.removeHyphens = this.removeHyphens.bind(this)
     }
 
-    handleChange()  {
-        this.props.onChange();
+    handleCaseChange()  {
+        this.props.onCaseChange();
+    }
+
+    removeHyphens() {
+       this.props.removeHyphens();
     }
 
     render()    {
@@ -26,8 +30,8 @@ class UuidChoices extends React.Component   {
                 <FormGroup row sx={{
                     justifyContent: 'space-evenly'
                 }}>
-                    <FormControlLabel control={<Checkbox />} label="Uppercase" onChange={this.handleChange} />
-                    <FormControlLabel control={<Checkbox />} label="Remove hyphens" />
+                    <FormControlLabel control={<Checkbox />} label="Uppercase" onChange={this.handleCaseChange} />
+                    <FormControlLabel control={<Checkbox />} label="Remove hyphens" onChange={this.removeHyphens} />
                     <FormControlLabel control={<Checkbox />} label="Numbers only" />
                 </FormGroup>
             </Box>

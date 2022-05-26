@@ -1,4 +1,4 @@
-import {Checkbox, FormControlLabel, FormGroup} from "@mui/material";
+import {Checkbox, FormControl, FormControlLabel, FormGroup, FormHelperText} from "@mui/material";
 import * as React from "react";
 import Box from "@mui/material/Box";
 
@@ -7,6 +7,10 @@ class UuidChoices extends React.Component   {
         super(props);
         this.handleCaseChange = this.handleCaseChange.bind(this)
         this.removeHyphens = this.removeHyphens.bind(this)
+        this.state = {
+            error: null,
+            isHyphenated: true,
+        }
     }
 
     handleCaseChange()  {
@@ -14,7 +18,11 @@ class UuidChoices extends React.Component   {
     }
 
     removeHyphens() {
-       this.props.removeHyphens();
+        this.props.removeHyphens();
+        this.setState({
+            error: null,
+            isHyphenated: false,
+        })
     }
 
     render()    {
@@ -27,13 +35,16 @@ class UuidChoices extends React.Component   {
                 p: 3,
                 m: 2,
             }}>
-                <FormGroup row sx={{
-                    justifyContent: 'space-evenly'
-                }}>
-                    <FormControlLabel control={<Checkbox />} label="Uppercase" onChange={this.handleCaseChange} />
-                    <FormControlLabel control={<Checkbox />} label="Remove hyphens" onChange={this.removeHyphens} />
-                    <FormControlLabel control={<Checkbox />} label="Numbers only" />
-                </FormGroup>
+                <FormControl>
+                    <FormGroup row sx={{
+                        justifyContent: 'space-evenly'
+                    }}>
+                        <FormControlLabel control={<Checkbox />} label="Uppercase" onChange={this.handleCaseChange} />
+                        <FormControlLabel control={<Checkbox />} label="Remove hyphens" onChange={this.removeHyphens} disabled={!this.state.isHyphenated}/>
+                        <FormControlLabel control={<Checkbox />} label="Numbers only" />
+                    </FormGroup>
+                    <FormHelperText>Removing hyphens and making it numeric are irreversible. You can always regenerate a new UUID</FormHelperText>
+                </FormControl>
             </Box>
         );
     }

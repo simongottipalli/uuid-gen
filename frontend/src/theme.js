@@ -7,6 +7,7 @@ const theme = createTheme({
         },
         text: {
             primary: '#F0F8FF',
+            disabled: '#CD5C5C',
         },
         background: {
             paper: '#28293D',
@@ -42,7 +43,7 @@ const theme = createTheme({
             styleOverrides: {
                 root: {
                     color: '#F0F8FF',
-                }
+                },
             }
         },
         MuiLinearProgress: {
@@ -55,6 +56,13 @@ const theme = createTheme({
                 },
             }
         },
+        MuiFormHelperText: {
+            styleOverrides: {
+                root: {
+                    color: '#CD5C5C',
+                }
+            }
+        }
     },
 });
 

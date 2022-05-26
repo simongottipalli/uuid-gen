@@ -69,7 +69,8 @@ class Content extends React.Component {
     }
 
     removeHyphens() {
-        let uuidToSet
+        //TODO: Figure out how to bring back hyphens?
+        let uuidToSet = this.state.items.uuid
         if (this.state.items.uuid.includes("-"))    {
             uuidToSet = this.state.items.uuid.replaceAll("-", "")
         }

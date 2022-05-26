@@ -56,10 +56,10 @@ const theme = createTheme({
                 },
             }
         },
-        MuiFormHelperText: {
+        MuiAlert: {
             styleOverrides: {
                 root: {
-                    color: '#CD5C5C',
+                    color: '#FFF0F5',
                 }
             }
         }

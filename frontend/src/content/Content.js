@@ -19,9 +19,19 @@ class Content extends React.Component {
         };
         this.onCaseChange = this.onCaseChange.bind(this)
         this.removeHyphens = this.removeHyphens.bind(this)
+        this.fetchUuid = this.fetchUuid.bind(this)
     }
 
     componentDidMount() {
+        this.fetchUuid()
+    }
+
+    fetchUuid() {
+        this.setState({
+            items: {
+                isLoaded: false,
+            },
+        });
         fetch(this.basePath + this.genUUIDPath)
             .then(res => res.json())
             .then(
@@ -91,7 +101,7 @@ class Content extends React.Component {
             <Container maxWidth="xl">
                 <Instructions />
                 <Uuid item={this.state.items}/>
-                <ContentButtons />
+                <ContentButtons regenerate={this.fetchUuid}/>
                 <UuidChoices
                     onCaseChange={this.onCaseChange}
                     removeHyphens={this.removeHyphens}

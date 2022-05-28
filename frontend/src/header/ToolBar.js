@@ -12,7 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import ToolbarGithubIcon from "./Github";
 
-const pages = ['UUID V4', 'GUID', 'UUID V3', 'UUID V2', 'UUID V1'];
+const pages = ['Version1', 'Version2', 'Version3', 'Version4', 'Version5'];
 
 const ResponsiveToolBar = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -72,7 +72,7 @@ const ResponsiveToolBar = () => {
                     <Button
                         key={page}
                         onClick={handleCloseNavMenu}
-                        sx={{ my: 2, display: 'block' }}
+                        sx={{ my: 2, display: 'block', textTransform: 'none', px: 3 }}
                     >
                         {page}
                     </Button>

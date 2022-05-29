@@ -22,7 +22,7 @@ func init() {
   "info": {
     "description": "Generates one or more UUIDs",
     "title": "UUID Generator",
-    "version": "0.0.3"
+    "version": "0.0.4"
   },
   "host": "0.0.0.0:8080",
   "paths": {
@@ -37,13 +37,24 @@ func init() {
         }
       }
     },
-    "/uuid": {
+    "/uuid/{version}": {
       "get": {
         "description": "A single UUID",
         "produces": [
           "application/json"
         ],
         "summary": "Get a uuid",
+        "parameters": [
+          {
+            "$ref": "#/parameters/version"
+          },
+          {
+            "$ref": "#/parameters/name"
+          },
+          {
+            "$ref": "#/parameters/uuid"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successfully return a uuid",
@@ -83,6 +94,35 @@ func init() {
       }
     }
   },
+  "parameters": {
+    "name": {
+      "type": "string",
+      "description": "A name string for UUID V3\n",
+      "name": "name",
+      "in": "query"
+    },
+    "uuid": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Predefined UUID for a V3 UUID\n",
+      "name": "uuid",
+      "in": "query"
+    },
+    "version": {
+      "enum": [
+        "v1",
+        "v2",
+        "v3",
+        "v4",
+        "v5"
+      ],
+      "type": "string",
+      "description": "UUID version\n",
+      "name": "version",
+      "in": "path",
+      "required": true
+    }
+  },
   "responses": {
     "200": {
       "description": "Success"
@@ -100,7 +140,7 @@ func init() {
   "info": {
     "description": "Generates one or more UUIDs",
     "title": "UUID Generator",
-    "version": "0.0.3"
+    "version": "0.0.4"
   },
   "host": "0.0.0.0:8080",
   "paths": {
@@ -115,13 +155,42 @@ func init() {
         }
       }
     },
-    "/uuid": {
+    "/uuid/{version}": {
       "get": {
         "description": "A single UUID",
         "produces": [
           "application/json"
         ],
         "summary": "Get a uuid",
+        "parameters": [
+          {
+            "enum": [
+              "v1",
+              "v2",
+              "v3",
+              "v4",
+              "v5"
+            ],
+            "type": "string",
+            "description": "UUID version\n",
+            "name": "version",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "A name string for UUID V3\n",
+            "name": "name",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "format": "uuid",
+            "description": "Predefined UUID for a V3 UUID\n",
+            "name": "uuid",
+            "in": "query"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successfully return a uuid",
@@ -162,6 +231,35 @@ func init() {
           "type": "string"
         }
       }
+    }
+  },
+  "parameters": {
+    "name": {
+      "type": "string",
+      "description": "A name string for UUID V3\n",
+      "name": "name",
+      "in": "query"
+    },
+    "uuid": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Predefined UUID for a V3 UUID\n",
+      "name": "uuid",
+      "in": "query"
+    },
+    "version": {
+      "enum": [
+        "v1",
+        "v2",
+        "v3",
+        "v4",
+        "v5"
+      ],
+      "type": "string",
+      "description": "UUID version\n",
+      "name": "version",
+      "in": "path",
+      "required": true
     }
   },
   "responses": {

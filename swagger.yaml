@@ -2,7 +2,7 @@ swagger: "2.0"
 info:
   title: UUID Generator
   description: Generates one or more UUIDs
-  version: 0.0.3
+  version: 0.0.4
 host: 0.0.0.0:8080
 paths:
   /:
@@ -12,12 +12,16 @@ paths:
       responses:
         200:    # status code
           $ref: '#/responses/200'
-  /uuid:
+  /uuid/{version}:
     get:
       summary: Get a uuid
       description: A single UUID
-      produces: 
+      produces:
         - application/json
+      parameters:
+        - $ref: '#/parameters/version'
+        - $ref: '#/parameters/name'
+        - $ref: '#/parameters/uuid'
       responses:
         200:
           description: Successfully return a uuid
@@ -50,3 +54,33 @@ definitions:
       error:
         type: string
         description: OK
+
+parameters:
+  version:
+    in: path
+    name: version
+    type: string
+    enum:
+      - v1
+      - v2
+      - v3
+      - v4
+      - v5
+    required: true
+    description: |
+      UUID version
+  name:
+    in: query
+    type: string
+    required: false
+    name: name
+    description: |
+      A name string for UUID V3
+  uuid:
+    in: query
+    type: string
+    required: false
+    name: uuid
+    description: |
+      Predefined UUID for a V3 UUID
+    format: uuid

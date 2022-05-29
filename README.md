@@ -1,5 +1,5 @@
 # Run
-`go run cmd/uuid-generator-server/main.go`
+`go run cmd/uuid-gen/main.go`
 
 # Todos:
 

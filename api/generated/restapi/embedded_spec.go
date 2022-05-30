@@ -72,9 +72,6 @@ func init() {
   "definitions": {
     "Error": {
       "type": "object",
-      "required": [
-        "error"
-      ],
       "properties": {
         "error": {
           "description": "OK",
@@ -103,7 +100,6 @@ func init() {
     },
     "uuid": {
       "type": "string",
-      "format": "uuid",
       "description": "Predefined UUID for a V3 UUID\n",
       "name": "uuid",
       "in": "query"
@@ -185,7 +181,6 @@ func init() {
           },
           {
             "type": "string",
-            "format": "uuid",
             "description": "Predefined UUID for a V3 UUID\n",
             "name": "uuid",
             "in": "query"
@@ -211,9 +206,6 @@ func init() {
   "definitions": {
     "Error": {
       "type": "object",
-      "required": [
-        "error"
-      ],
       "properties": {
         "error": {
           "description": "OK",
@@ -242,7 +234,6 @@ func init() {
     },
     "uuid": {
       "type": "string",
-      "format": "uuid",
       "description": "Predefined UUID for a V3 UUID\n",
       "name": "uuid",
       "in": "query"

@@ -10,8 +10,6 @@ import (
 	"net/url"
 	golangswaggerpaths "path"
 	"strings"
-
-	"github.com/go-openapi/strfmt"
 )
 
 // GetUUIDVersionURL generates an URL for the get UUID version operation
@@ -19,7 +17,7 @@ type GetUUIDVersionURL struct {
 	Version string
 
 	Name *string
-	UUID *strfmt.UUID
+	UUID *string
 
 	_basePath string
 	// avoid unkeyed usage
@@ -69,7 +67,7 @@ func (o *GetUUIDVersionURL) Build() (*url.URL, error) {
 
 	var uuidQ string
 	if o.UUID != nil {
-		uuidQ = o.UUID.String()
+		uuidQ = *o.UUID
 	}
 	if uuidQ != "" {
 		qs.Set("uuid", uuidQ)

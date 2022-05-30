@@ -26,21 +26,29 @@ func (g *GetHandler) Handle(params operations.GetParams) middleware.Responder {
 func (g *GetUuidHandler) Handle(params operations.GetUUIDVersionParams) middleware.Responder {
 	id := ""
 	if params.Version == "v1" || params.Version == "" {
-		id = uuid.NewString()
+		id = generateUuidV1()
 		return operations.NewGetUUIDVersionOK().WithPayload(&models.GetUUIDResponse{UUID: &id})
 	}
 	if params.Version == "v3" {
-		uuidParam, err := uuid.Parse(params.UUID.String())
+		spaceUuid, err := validateForV3(params.UUID, params.Name)
 		if err != nil {
-			error := "Could not parse UUID"
-			return operations.NewGetUUIDVersionInternalServerError().WithPayload(&models.Error{Error: &error})
+			return operations.NewGetUUIDVersionInternalServerError().WithPayload(err)
 		}
-		id = uuid.NewMD5(uuidParam, []byte(*params.Name)).String()
+		id = generateUuidV3(spaceUuid, params.Name)
 		return operations.NewGetUUIDVersionOK().WithPayload(&models.GetUUIDResponse{UUID: &id})
 	}
 	if params.Version != "" {
 		id = "Unimplemented"
-		return operations.NewGetUUIDVersionOK().WithPayload(&models.GetUUIDResponse{UUID: &id})
+		return operations.NewGetUUIDVersionInternalServerError().WithPayload(InvalidVersion)
 	}
 	return operations.NewGetUUIDVersionInternalServerError()
+}
+
+func generateUuidV1() string {
+	return uuid.NewString()
+}
+
+func generateUuidV3(spacedUuid *uuid.UUID, name *string) string {
+	id := uuid.NewMD5(*spacedUuid, []byte(*name)).String()
+	return id
 }

@@ -41,7 +41,7 @@ type GetUUIDVersionParams struct {
 
 	  In: query
 	*/
-	UUID *strfmt.UUID
+	UUID *string
 	/*UUID version
 
 	  Required: true
@@ -112,27 +112,8 @@ func (o *GetUUIDVersionParams) bindUUID(rawData []string, hasKey bool, formats s
 	if raw == "" { // empty values pass all other validations
 		return nil
 	}
+	o.UUID = &raw
 
-	// Format: uuid
-	value, err := formats.Parse("uuid", raw)
-	if err != nil {
-		return errors.InvalidType("uuid", "query", "strfmt.UUID", raw)
-	}
-	o.UUID = (value.(*strfmt.UUID))
-
-	if err := o.validateUUID(formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// validateUUID carries on validations for parameter UUID
-func (o *GetUUIDVersionParams) validateUUID(formats strfmt.Registry) error {
-
-	if err := validate.FormatOf("uuid", "query", "uuid", o.UUID.String(), formats); err != nil {
-		return err
-	}
 	return nil
 }
 

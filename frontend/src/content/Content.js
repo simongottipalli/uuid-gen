@@ -10,7 +10,7 @@ class Content extends React.Component {
     constructor(props) {
         super(props);
         this.basePath = "https://uuid-gen-g6d5qy6jra-ew.a.run.app"
-        this.genUUIDPath = "/uuid"
+        this.genUUIDPath = "/uuid/v1"
         this.state = {
             error: null,
             items: {

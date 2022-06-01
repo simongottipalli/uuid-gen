@@ -81,4 +81,3 @@ parameters:
     name: uuid
     description: |
       Predefined UUID for a V3 UUID
-#    format: uuid

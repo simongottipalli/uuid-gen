@@ -20,9 +20,11 @@ class UuidChoices extends React.Component   {
 
     removeHyphens() {
         this.props.removeHyphens();
-        this.setState({
-            error: null,
-            isHyphenated: false,
+        this.setState(() => {
+            return  {
+                error: null,
+                isHyphenated: false,
+            }
         })
     }
 

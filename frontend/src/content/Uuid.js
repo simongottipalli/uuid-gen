@@ -3,7 +3,7 @@ import {LinearProgress, Typography, Box, Button} from "@mui/material";
 import {CopyToClipboard} from "react-copy-to-clipboard/src";
 
 export default function Uuid(props)  {
-    const {isLoaded, uuid, error} = props.item;
+    const {isLoaded, uuid, error} = props;
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {

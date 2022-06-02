@@ -14,9 +14,7 @@ class Content extends React.Component {
         this.genUUIDPath = "/uuid"
         this.state = {
             error: null,
-            items: {
-                isLoaded: false,
-            }
+            isLoaded: false,
         };
         this.onCaseChange = this.onCaseChange.bind(this)
         this.removeHyphens = this.removeHyphens.bind(this)
@@ -51,10 +49,9 @@ class Content extends React.Component {
 
     fetchUuid(params) {
         this.setState(() => { return {
-            items: {
                 isLoaded: false,
-            },
-        }});
+            }
+        });
 
         this.preparePath(params)
 
@@ -62,15 +59,14 @@ class Content extends React.Component {
             .then(res => res.json())
             .then(
                 (result) => {
-                    this.setState({
-                        items: {
+                    this.setState(() => {
+                        return  {
                             isLoaded: true,
                             uuid: result.uuid,
                             isUppercase: false,
                             isHyphenated: true,
                             isNumeric: false,
-                        },
-                    });
+                        }});
                 },
                 // Note: it's important to handle errors here
                 // instead of a catch() block so that we don't swallow
@@ -84,39 +80,31 @@ class Content extends React.Component {
     }
 
     onCaseChange() {
-        const stateToSet = !this.state.items.isUppercase
+        const stateToSet = !this.state.isUppercase
         let uuidToSet
         if (stateToSet) {
-            uuidToSet = this.state.items.uuid.toUpperCase()
+            uuidToSet = this.state.uuid.toUpperCase()
         }
         else {
-            uuidToSet = this.state.items.uuid.toLowerCase()
+            uuidToSet = this.state.uuid.toLowerCase()
         }
-        this.setState({
-            items:  {
+        this.setState(() => {
+            return {
                 isUppercase: stateToSet,
                 uuid: uuidToSet,
-                isLoaded: true,
-                version: this.state.items.version,
-                isHyphenated: this.state.items.isHyphenated,
-                isNumeric: this.state.items.isNumeric,
         }})
     }
 
     removeHyphens() {
         //TODO: Figure out how to bring back hyphens?
-        let uuidToSet = this.state.items.uuid
-        if (this.state.items.uuid.includes("-"))    {
-            uuidToSet = this.state.items.uuid.replaceAll("-", "")
+        let uuidToSet = this.state.uuid
+        if (this.state.uuid.includes("-"))    {
+            uuidToSet = this.state.uuid.replaceAll("-", "")
         }
-        this.setState({
-            items:  {
+        this.setState(() => {
+            return {
                 isHyphenated: false,
                 uuid: uuidToSet,
-                isLoaded: true,
-                version: this.state.items.version,
-                isUppercase: this.state.items.isUppercase,
-                isNumeric: this.state.items.isNumeric,
             }})
     }
 
@@ -124,7 +112,7 @@ class Content extends React.Component {
         return (
             <Container maxWidth="xl">
                 <Instructions generated={true}/>
-                <Uuid item={this.state.items}/>
+                <Uuid isLoaded={this.state.isLoaded} uuid={this.state.uuid} error={this.state.error}/>
                 <ContentButtons generate={this.fetchUuid}/>
                 <UuidChoices
                     onCaseChange={this.onCaseChange}

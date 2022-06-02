@@ -13,8 +13,6 @@ class Fields extends React.Component  {
             name: "",
             id: "",
         }
-        this.name = "";
-        this.id = "";
 
         this.setName = this.setName.bind(this)
         this.setId = this.setId.bind(this)
@@ -22,11 +20,19 @@ class Fields extends React.Component  {
     }
 
     setName(e)   {
-        this.name = e.target.value
+        this.setState(() => {
+            return {
+                name: e.target.value
+            }
+        })
     }
 
     setId(e)    {
-        this.id = e.target.value;
+        this.setState(() => {
+            return {
+                id: e.target.value
+            }
+        })
     }
 
     render()    {
@@ -43,7 +49,7 @@ class Fields extends React.Component  {
 
                     <TextField fullWidth required label="Name" id="name" variant="outlined" onChange={this.setName} />
                     <TextField fullWidth required label="Identifier" id="identifier" variant="outlined" onChange={this.setId} />
-                    <ContentButtons generate={this.props.onClick} name={this.name} uuid={this.id} />
+                    <ContentButtons generate={this.props.onClick} name={this.state.name} uuid={this.state.id} />
                 </Stack>
             </Box>
         );

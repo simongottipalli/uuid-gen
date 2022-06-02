@@ -156,7 +156,7 @@ class Content extends React.Component {
     }
 
     render() {
-        if ((this.props.page === "Version3" === this.state.version) && (this.state.isLoaded))  {
+        if ((this.props.page === "Version3") && (this.state.version === "Version3") && (this.state.isLoaded))  {
             return this.renderUuid()
         }
         else if ((this.props.page === "Version3") && (this.state.version !== "Version3")) {

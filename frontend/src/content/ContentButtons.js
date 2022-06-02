@@ -7,11 +7,10 @@ class ContentButtons extends React.Component    {
     constructor(props)  {
         super(props);
         this.handleChange = this.handleChange.bind(this)
-
     }
 
     handleChange()  {
-        this.props.regenerate()
+        this.props.generate(this.props)
     }
 
     render()    {

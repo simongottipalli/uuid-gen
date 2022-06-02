@@ -1,10 +1,36 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Header from './header/Header';
+import NavBar from './header/Header';
 import Content from './content/Content'
 import reportWebVitals from './utils/reportWebVitals';
 import {CssBaseline, ThemeProvider} from "@mui/material";
 import theme from './theme'
+
+
+class App extends React.Component   {
+    constructor(props) {
+        super(props);
+        this.state = {}
+        this.navigatePage = this.navigatePage.bind(this)
+    }
+
+    navigatePage(pageTitle)  {
+        this.setState(() => {
+            return {
+                page: pageTitle,
+            }
+        });
+    }
+
+    render()    {
+        return (
+            <>
+                <NavBar onChange={this.navigatePage} />
+                <Content page={this.state.page} />
+            </>
+        )
+    }
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -12,8 +38,7 @@ root.render(
         <CssBaseline>
             <React.StrictMode>
                 <meta name="viewport" content="initial-scale=1, width=device-width" />
-                <Header />
-                <Content />
+                <App />
             </React.StrictMode>
         </CssBaseline>
     </ThemeProvider>

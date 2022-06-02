@@ -40,7 +40,8 @@ class Content extends React.Component {
     preparePath(params)   {
         this.path = this.basePath + this.genUUIDPath + this.version()+ '?'
         if (params) {
-            Object.keys(params).map((key) => {
+            Object.keys(params).forEach(
+                (key) => {
                 if (key !== 'generate') {
                     this.path = this.path + key + '=' + params[key] + '&'
                 }

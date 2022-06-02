@@ -1,11 +1,21 @@
 import React from 'react'
 import {LinearProgress, Typography, Box, Button} from "@mui/material";
 import {CopyToClipboard} from "react-copy-to-clipboard/src";
+import {Alert} from "@mui/material";
 
 export default function Uuid(props)  {
     const {isLoaded, uuid, error} = props;
     if (error) {
-      return <div>Error: {error.message}</div>;
+      return (
+        <Box component="span" sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: 100,
+        }}>
+            <Alert severity="error" variant={"outlined"}>{error}</Alert>
+        </Box>
+      )
     } else if (!isLoaded) {
         return (
             <Box sx={{height: 100, alignItems: 'center'}}>
@@ -29,7 +39,6 @@ export default function Uuid(props)  {
                     </Button>
 
                 </CopyToClipboard>
-
             </Box>
         );
     }

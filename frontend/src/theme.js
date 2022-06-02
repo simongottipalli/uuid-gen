@@ -58,8 +58,11 @@ const theme = createTheme({
         },
         MuiAlert: {
             styleOverrides: {
-                root: {
+                outlinedInfo:   {
                     color: '#FFF0F5',
+                },
+                outlinedError:  {
+                    color: '#CD5C5C'
                 }
             }
         }

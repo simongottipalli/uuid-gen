@@ -20,6 +20,7 @@ class Content extends React.Component {
         this.removeHyphens = this.removeHyphens.bind(this)
         this.fetchUuid = this.fetchUuid.bind(this)
         this.preparePath = this.preparePath.bind(this)
+        this.renderUuid = this.renderUuid.bind(this)
     }
 
     version()   {
@@ -59,14 +60,24 @@ class Content extends React.Component {
             .then(res => res.json())
             .then(
                 (result) => {
-                    this.setState(() => {
-                        return  {
-                            isLoaded: true,
-                            uuid: result.uuid,
-                            isUppercase: false,
-                            isHyphenated: true,
-                            isNumeric: false,
-                        }});
+                    if (result.uuid != null)   {
+                        this.setState(() => {
+                            return  {
+                                isLoaded: true,
+                                uuid: result.uuid,
+                                isUppercase: false,
+                                isHyphenated: true,
+                                isNumeric: false,
+                                version: this.props.page,
+                            }});
+                    }
+                    else if (result.error !== null)   {
+                        this.setState(() => {
+                            return  {
+                                error: result.error
+                            }
+                        });
+                    }
                 },
                 // Note: it's important to handle errors here
                 // instead of a catch() block so that we don't swallow
@@ -108,6 +119,19 @@ class Content extends React.Component {
             }})
     }
 
+    renderUuid()  {
+        return (
+            <Container maxWidth="xl">
+                <Instructions generated={true}/>
+                <Uuid isLoaded={this.state.isLoaded} uuid={this.state.uuid} error={this.state.error}/>
+                <ContentButtons generate={this.fetchUuid}/>
+                <UuidChoices
+                    onCaseChange={this.onCaseChange}
+                    removeHyphens={this.removeHyphens}
+                />
+            </Container>
+        );
+    }
     renderV1()  {
         return (
             <Container maxWidth="xl">
@@ -132,11 +156,14 @@ class Content extends React.Component {
     }
 
     render() {
-        if (this.props.page==="Version3")   {
+        if ((this.props.page === "Version3" === this.state.version) && (this.state.isLoaded))  {
+            return this.renderUuid()
+        }
+        else if ((this.props.page === "Version3") && (this.state.version !== "Version3")) {
             return this.renderV3()
         }
         else   {
-            return this.renderV1()
+            return this.renderUuid()
         }
     }
 }

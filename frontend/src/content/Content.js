@@ -4,13 +4,14 @@ import Instructions from "./Instructions"
 import UuidChoices from "./UuidOptions";
 import Uuid from "./Uuid";
 import ContentButtons from "./ContentButtons";
+import Fields from "./Fields";
 
 
 class Content extends React.Component {
     constructor(props) {
         super(props);
         this.basePath = "https://uuid-gen-g6d5qy6jra-ew.a.run.app"
-        this.genUUIDPath = "/uuid/v1"
+        this.genUUIDPath = "/uuid"
         this.state = {
             error: null,
             items: {
@@ -20,19 +21,43 @@ class Content extends React.Component {
         this.onCaseChange = this.onCaseChange.bind(this)
         this.removeHyphens = this.removeHyphens.bind(this)
         this.fetchUuid = this.fetchUuid.bind(this)
+        this.preparePath = this.preparePath.bind(this)
+    }
+
+    version()   {
+        if (this.props.page==="Version3")   {
+            return "/v3"
+        }
+        else    {
+            return "/v1"
+        }
     }
 
     componentDidMount() {
         this.fetchUuid()
     }
 
-    fetchUuid() {
-        this.setState({
+    preparePath(params)   {
+        this.path = this.basePath + this.genUUIDPath + this.version()+ '?'
+        if (params) {
+            Object.keys(params).map((key) => {
+                if (key !== 'generate') {
+                    this.path = this.path + key + '=' + params[key] + '&'
+                }
+            })
+        }
+    }
+
+    fetchUuid(params) {
+        this.setState(() => { return {
             items: {
                 isLoaded: false,
             },
-        });
-        fetch(this.basePath + this.genUUIDPath)
+        }});
+
+        this.preparePath(params)
+
+        fetch(this.path)
             .then(res => res.json())
             .then(
                 (result) => {
@@ -40,7 +65,6 @@ class Content extends React.Component {
                         items: {
                             isLoaded: true,
                             uuid: result.uuid,
-                            version: "V4",
                             isUppercase: false,
                             isHyphenated: true,
                             isNumeric: false,
@@ -95,19 +119,36 @@ class Content extends React.Component {
             }})
     }
 
-    render() {
-
+    renderV1()  {
         return (
             <Container maxWidth="xl">
-                <Instructions />
+                <Instructions generated={true}/>
                 <Uuid item={this.state.items}/>
-                <ContentButtons regenerate={this.fetchUuid}/>
+                <ContentButtons generate={this.fetchUuid}/>
                 <UuidChoices
                     onCaseChange={this.onCaseChange}
                     removeHyphens={this.removeHyphens}
                 />
             </Container>
         );
+    }
+
+    renderV3()  {
+        return  (
+            <Container maxWidth="xl">
+                <Instructions generated={false}/>
+                <Fields onClick={this.fetchUuid}/>
+            </Container>
+        )
+    }
+
+    render() {
+        if (this.props.page==="Version3")   {
+            return this.renderV3()
+        }
+        else   {
+            return this.renderV1()
+        }
     }
 }
 export default Content;

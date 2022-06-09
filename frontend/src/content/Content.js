@@ -3,7 +3,7 @@ import {Container} from "@mui/material";
 import Instructions from "./Instructions"
 import UuidChoices from "./UuidOptions";
 import Uuid from "./Uuid";
-import ContentButtons from "./ContentButtons";
+import GenerateButton from "../components/generate-button";
 
 
 class Content extends React.Component {
@@ -101,7 +101,7 @@ class Content extends React.Component {
             <Container maxWidth="xl">
                 <Instructions />
                 <Uuid item={this.state.items}/>
-                <ContentButtons regenerate={this.fetchUuid}/>
+                <GenerateButton onClick={this.fetchUuid} buttonText={"Regenerate"}/>
                 <UuidChoices
                     onCaseChange={this.onCaseChange}
                     removeHyphens={this.removeHyphens}

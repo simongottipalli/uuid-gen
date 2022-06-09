@@ -3,15 +3,14 @@ import {RefreshOutlined} from "@mui/icons-material";
 import React from "react";
 import Box from "@mui/material/Box";
 
-class ContentButtons extends React.Component    {
+class GenerateButton extends React.Component    {
     constructor(props)  {
         super(props);
         this.handleChange = this.handleChange.bind(this)
-
     }
 
     handleChange()  {
-        this.props.regenerate()
+        this.props.onClick()
     }
 
     render()    {
@@ -22,11 +21,11 @@ class ContentButtons extends React.Component    {
                 alignItems: 'center',
             }}>
                 <Button variant="outlined" startIcon={<RefreshOutlined />} onClick={this.handleChange}>
-                    Regenerate
+                    {this.props.buttonText}
                 </Button>
             </Box>
         );
     }
 }
 
-export default ContentButtons
+export default GenerateButton

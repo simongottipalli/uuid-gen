@@ -2,11 +2,9 @@ import React from 'react'
 import {LinearProgress, Typography, Box, Button} from "@mui/material";
 import {CopyToClipboard} from "react-copy-to-clipboard/src";
 
-export default function Uuid(props)  {
-    const {isLoaded, uuid, error} = props.item;
-    if (error) {
-      return <div>Error: {error.message}</div>;
-    } else if (!isLoaded) {
+export default function UuidText(props)  {
+    const {isLoaded, uuid} = props;
+    if (!isLoaded) {
         return (
             <Box sx={{height: 100, alignItems: 'center'}}>
                 <LinearProgress />

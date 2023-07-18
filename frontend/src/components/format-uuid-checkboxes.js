@@ -3,7 +3,8 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import {Alert} from "@mui/material";
 
-class UuidChoices extends React.Component   {
+class FormatUuidCheckboxes extends React.Component   {
+
     constructor(props) {
         super(props);
         this.handleCaseChange = this.handleCaseChange.bind(this)
@@ -40,7 +41,7 @@ class UuidChoices extends React.Component   {
                         justifyContent: 'space-evenly'
                     }}>
                         <FormControlLabel control={<Checkbox />} label="Uppercase" onChange={this.handleCaseChange} />
-                        <FormControlLabel control={<Checkbox />} label="Remove hyphens" onChange={this.removeHyphens} disabled={!this.state.isHyphenated}/>
+                        <FormControlLabel control={<Checkbox />} label="Remove hyphens" onChange={this.removeHyphens} disabled={!this.state.isHyphenated} />
                         <FormControlLabel control={<Checkbox />} label="Numbers only" />
                     </FormGroup>
                 </Box>
@@ -57,4 +58,4 @@ class UuidChoices extends React.Component   {
         );
     }
 }
-export default UuidChoices
+export default FormatUuidCheckboxes

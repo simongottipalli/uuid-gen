@@ -1,9 +1,10 @@
 import * as React from 'react';
 import {Container} from "@mui/material";
-import Instructions from "./Instructions"
-import UuidChoices from "./UuidOptions";
-import Uuid from "./Uuid";
-import ContentButtons from "./ContentButtons";
+import GenerateButton from "../components/generate-button";
+import ClickToCopyText from "../components/click-to-copy-text";
+import UuidText from "../components/uuid-text";
+import FormatUuidCheckboxes from "../components/format-uuid-checkboxes";
+import ErrorText from "../components/error-text";
 
 
 class Content extends React.Component {
@@ -13,38 +14,44 @@ class Content extends React.Component {
         this.genUUIDPath = "/uuid/v1"
         this.state = {
             error: null,
-            items: {
-                isLoaded: false,
-            }
+            isLoaded: false,
+            isUppercase: false,
+            isHyphenated: true,
+            isNumeric: false,
         };
         this.onCaseChange = this.onCaseChange.bind(this)
         this.removeHyphens = this.removeHyphens.bind(this)
         this.fetchUuid = this.fetchUuid.bind(this)
+        this.newUuid = this.newUuid.bind(this)
     }
 
     componentDidMount() {
+        this.newUuid()
+    }
+
+    newUuid()   {
+        this.setState(() => {
+            return {
+                error: null,
+                isLoaded: false,
+                isUppercase: false,
+                isHyphenated: true,
+                isNumeric: false,
+            }
+        });
         this.fetchUuid()
     }
 
     fetchUuid() {
-        this.setState({
-            items: {
-                isLoaded: false,
-            },
-        });
         fetch(this.basePath + this.genUUIDPath)
             .then(res => res.json())
             .then(
                 (result) => {
-                    this.setState({
-                        items: {
+                    this.setState(() => {
+                        return {
                             isLoaded: true,
                             uuid: result.uuid,
-                            version: "V4",
-                            isUppercase: false,
-                            isHyphenated: true,
-                            isNumeric: false,
-                        },
+                        }
                     });
                 },
                 // Note: it's important to handle errors here
@@ -59,39 +66,31 @@ class Content extends React.Component {
     }
 
     onCaseChange() {
-        const stateToSet = !this.state.items.isUppercase
+        const stateToSet = !this.state.isUppercase
         let uuidToSet
         if (stateToSet) {
-            uuidToSet = this.state.items.uuid.toUpperCase()
+            uuidToSet = this.state.uuid.toUpperCase()
         }
         else {
-            uuidToSet = this.state.items.uuid.toLowerCase()
+            uuidToSet = this.state.uuid.toLowerCase()
         }
-        this.setState({
-            items:  {
+        this.setState(() => {
+            return  {
                 isUppercase: stateToSet,
                 uuid: uuidToSet,
-                isLoaded: true,
-                version: this.state.items.version,
-                isHyphenated: this.state.items.isHyphenated,
-                isNumeric: this.state.items.isNumeric,
         }})
     }
 
     removeHyphens() {
         //TODO: Figure out how to bring back hyphens?
-        let uuidToSet = this.state.items.uuid
-        if (this.state.items.uuid.includes("-"))    {
-            uuidToSet = this.state.items.uuid.replaceAll("-", "")
+        let uuidToSet = this.state.uuid
+        if (this.state.uuid.includes("-"))    {
+            uuidToSet = this.state.uuid.replaceAll("-", "")
         }
-        this.setState({
-            items:  {
+        this.setState(() => {
+            return  {
                 isHyphenated: false,
                 uuid: uuidToSet,
-                isLoaded: true,
-                version: this.state.items.version,
-                isUppercase: this.state.items.isUppercase,
-                isNumeric: this.state.items.isNumeric,
             }})
     }
 
@@ -99,10 +98,11 @@ class Content extends React.Component {
 
         return (
             <Container maxWidth="xl">
-                <Instructions />
-                <Uuid item={this.state.items}/>
-                <ContentButtons regenerate={this.fetchUuid}/>
-                <UuidChoices
+                <ClickToCopyText />
+                <UuidText isLoaded={this.state.isLoaded} uuid={this.state.uuid} />
+                <ErrorText error={this.state.error} />
+                <GenerateButton onClick={this.newUuid} buttonText={"Regenerate"}/>
+                <FormatUuidCheckboxes
                     onCaseChange={this.onCaseChange}
                     removeHyphens={this.removeHyphens}
                 />

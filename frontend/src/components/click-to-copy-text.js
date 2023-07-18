@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 import {Typography} from "@mui/material";
 
-export default function Instructions() {
+export default function ClickToCopyText() {
     return (
         <Box component="span" sx={{
             display: 'flex',
